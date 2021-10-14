@@ -10,8 +10,6 @@ public class calMethods{
 		System.out.println(mutiply(5.0,2.0));
 		System.out.println(remainder(5,2));
 
-		// String day = "Friday";
-		// int startValue = 50;
 
 		//input for countdown
 		// Scanner inputNum = new Scanner(System.in);  // Create a Scanner object
