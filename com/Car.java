@@ -1,4 +1,3 @@
-package com.modelEx.models;
 
  public class Car{
      
