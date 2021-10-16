@@ -12,7 +12,7 @@ public class Store {
         this.types = types;
     }
  
-    //  public store(String colors[]){
+    //  public store(String[] colors){
     //      this.colors = colors;
     //  }
 }
