@@ -17,6 +17,15 @@ public class BoringTask extends Task{
 		 this.setDueDate(this.getDueDate().plusDays(1));
 	 }
 
+	@Override
+	public String toString() {
+		return "BoringTask [getName()=" + getName() + ", getDueDate()=" + getDueDate() + ", toString()="
+				+ super.toString() + "]";
+	}
+
+	
+	
+
 	
 	
 }

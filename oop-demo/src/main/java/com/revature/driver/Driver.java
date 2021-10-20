@@ -16,7 +16,7 @@ public class Driver {
 	
 	public static void main(String[] args) {
 		
-		System.out.println(User.getNumOfUsers());
+//		System.out.println(User.getNumOfUsers());
 		User u = new User();
 //		u.username = "Kevin";
 		User k = new User();
@@ -56,7 +56,7 @@ public class Driver {
 		
 		
 		bt.procratinate();
-		it.stress();
+//		it.stress();
 		
 //		System.out.println(it);
 		System.out.println(bt);
