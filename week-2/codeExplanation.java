@@ -12,4 +12,4 @@ if (score == 80) { // An if statement checking if int score is equal to 80
 	result = "You did not pass. Try again!";// result will be assigned the string "you did not pass. Try again!"
 }
 
-System.out.println(result);//we then step out of the if statement and print out the string stored in the variable result to the console
+System.out.println(result);//we then step out of the if statement and print out the string stored in the variable called result to the console
