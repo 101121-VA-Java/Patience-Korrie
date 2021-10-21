@@ -1,10 +1,10 @@
 public static void main(String[] args) { /* Here we are creating a main class with a public access modifier, made static with no return type(void), 
-											and passing in an array type String and an argement*/
+					    and passing in an array type String and an argement*/
 	String[] foodTypes = getFoodTypes();// we then are declaring a string array called foodTypes and assiging it to a method called getFoodTypes
 	String myType = foodTypes[2];//here we are declaying a string called myType and assiging it foodTypes(the pervious array created) with the content at index 2 which is "dinner"
 
 	String[] foodsOfMyType = getFoodsByType(myType); /* we are also declaring another string array called foodOfMyType and assiging it a 
-														method called getFoodsByType and passing it the string myType created above*/
+							    method called getFoodsByType and passing it the string myType created above*/
 	
 	for (String food : foodsOfMyType) { // Creating a for loop that goes through each food in the array foodOfMyType
 		System.out.println(food); // Prints each food to the console...which would print the contents of foods in case the third case,dinner
@@ -12,13 +12,13 @@ public static void main(String[] args) { /* Here we are creating a main class wi
 }
 
 public static String[] getFoodTypes() { /* Here we are creating the method called getFoodTypes with the acesse modifier of public, 
-											making it static, with a type string array*/
+					   making it static, with a type string array*/
 	String[] foodTypes = {"breakfast","lunch","dinner","dessert","snack"}; // Here we are specify each element in an array and assiging it to the string arr foodTypes
 	return foodTypes; // Returing variable foodTypes and what it contains 
 }
 
 public static String[] getFoodsByType(String type) { /* Here we are creating the method called getFoodsByType with the acesse modifier of public, 
-														making it static, with a type string array and passing in a string variable called type*/
+							making it static, with a type string array and passing in a string variable called type*/
 	String[] foods = new String[3]; // Declaring a strin arr called foods and assiging it a neww string with 3 element/indexes
 
 	switch(type) { //start a switch statment with type(the string being pass in at the begining of the method) passed in the parameter
@@ -54,5 +54,5 @@ public static String[] getFoodsByType(String type) { /* Here we are creating the
 		break;//break out of the switch statement after filling the foods arr
 	}
 
-	return foods; // stepping out of the switch statement and returning foods with whaterver elements were stored
+	return foods; // stepping out of the switch statement and returning foods with whatever elements were stored
 }
