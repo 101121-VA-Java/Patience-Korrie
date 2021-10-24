@@ -1,11 +1,14 @@
 package com.revature.models;
 
 import java.time.LocalDate;
+import java.util.Random;
+
 
 public class Task {
 	
 	private String name;
 	private LocalDate dueDate;
+	public String completedTasks= "";
 	
 	public Task() {
 		super();
@@ -74,4 +77,23 @@ public class Task {
 	public String toString() {
 		return "Task [name=" + name + ", dueDate=" + dueDate + "]";
 	}
+	
+	public Task getATask() {
+		return new Task();
+	}
+	
+	public int randomNum() {
+		      
+		Random random = new Random();	
+		return  (int) Math.round(Math.random()*100);
+
+		
+	}
+	
+	/*
+	 * public class Object{
+	 * 	public String toString(){
+	 * 		return //memory address; 
+	 * }
+	 */
 }

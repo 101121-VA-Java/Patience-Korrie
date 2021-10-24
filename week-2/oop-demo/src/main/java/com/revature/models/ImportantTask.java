@@ -2,12 +2,15 @@ package com.revature.models;
 
 import java.time.LocalDate;
 
-public class ImportantTask extends Task{
+public class ImportantTask extends Task {
+	
+	
 
 	
 	public ImportantTask() {
 		super();
 		// TODO Auto-generated constructor stub
+		LocalDate.now();
 	}
 
 	public ImportantTask(String name, LocalDate dueDate) {
@@ -15,6 +18,9 @@ public class ImportantTask extends Task{
 		// TODO Auto-generated constructor stub
 	}
 
+
+	
+	
 	public void stress() {
 		/*
 		 * Because dueDate is a private field in Task, it is not visible/accessible via the child class
