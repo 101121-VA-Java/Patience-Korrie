@@ -1,9 +1,12 @@
 package com.revature.repositories;
 
+import java.util.List;
+
 import com.revature.models.Customer;
 
 public interface CustomerDao {
-	Customer[] viewAvailableItem(); // returns an array of all of the  available items
-	Customer makeOffer(String item); //
+	List<Customer> getAllEmployees(); // returns an array of all of the employees available
+	Customer getEmployeeById(int id);
+	Customer addEmployee(Customer cs); 
 	
 }

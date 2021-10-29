@@ -1,31 +1,42 @@
 package com.revature.services;
 
+import java.util.List;
+
+
 import com.revature.models.Employee;
+import com.revature.models.Roles;
 import com.revature.repositories.EmployeeDao;
 import com.revature.repositories.EmployeeList;
 
 public class EmployeeService {
 	
-	private EmployeeDao ed;
+	private EmployeeDao ed = new EmployeeList();;
 
-	public EmployeeService() {
-		super();
-		ed = new EmployeeList();
+	
+	public Employee addEmployee(Employee e) throws UsernameAlreadyExistsException{
+		Employee newEmp = this.getEmployeeByUsername(e.getUsername());
+		if(newEmp != null) {
+			throw new UsernameAlreadyExistsException();
+		}
+		e.setRole(Roles.Empolyee);
+		return ed. addEmployee(e);
 	}
 	
-	public Employee addEmployee(Employee e) {
-		/*
-		 * add business logic here to manipulate e before storage
-		 */
-		return ed.addEmployee(e);
+	
+	private Employee getEmployeeByUsername(String username) {
+		List<Employee> employees = ed.getAllEmployees();
+		for(Employee e : employees) {
+			if (e.getUsername().equals(username)) {
+				return e;
+			}
+		}
+		return null;
 	}
-	
-	
+
+
 	public Employee getEmployeeById(int id) {
-		/*
-		 * add business logic here to manipulate e before storage
-		 */
 		return ed.getEmployeeById(id);
 	}
+	
 
 }

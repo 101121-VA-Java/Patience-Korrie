@@ -2,6 +2,8 @@ package com.revature.controllers;
 
 import java.util.Scanner;
 
+import com.revature.services.UsernameAlreadyExistsException;
+
 public class FrontController {
 	
 	private Scanner sc;
@@ -12,26 +14,26 @@ public class FrontController {
 		ec = new EmployeeController();
 	}
 	
-	public void run() {
+	public void run() throws UsernameAlreadyExistsException {
 		boolean run = true;
 		
 		while(run) {
 			System.out.println("Welcome! What would you like to do:");
-			System.out.println("1: register");
-			System.out.println("2: login");
-			System.out.println("3: exit");
+			System.out.println("Register");
+			System.out.println("Login");
+			System.out.println("Exit");
 			
 			String choice = sc.nextLine();
 			
 			switch(choice) {
-			case "1":
+			case "Register":
 				ec.registerEmployee(sc);
 				// TODO: if an employee is not registered, display a different message
 				System.out.println("Registeration was not susseful");
 				break;
-			case "2":
+			case "Login":
 				break;
-			case "3":
+			case "Exit":
 				run = false;
 				break;
 			default:

@@ -4,23 +4,25 @@ import java.util.Objects;
 
 public class User {
 	
-	private int id;
-	private String name;
-	private String username;
-	private String password;
-	private Roles role; // using an enum to store a specific value
+	protected int id;
+	protected String name;
+	protected String username;
+	protected String password;
+	protected Roles role;
+	protected int manager;
 
 	public User() {
 		super();
 	}
 
-	public User(int id, String name, String username, String password, Roles role, Employee manager) {
+	public User(int id, String name, String username, String password, Roles role, int manager) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.username = username;
 		this.password = password;
 		this.role = role;
+		this.manager = manager;
 	}
 
 	public int getId() {
@@ -63,15 +65,17 @@ public class User {
 		this.role = role;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", username=" + username + ", password=" + password + ", role="
-				+ role + "]";
+	public int getManager() {
+		return manager;
+	}
+
+	public void setManager(int manager) {
+		this.manager = manager;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, password, role, username);
+		return Objects.hash(id, manager, name, password, role, username);
 	}
 
 	@Override
@@ -83,11 +87,17 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return id == other.id && Objects.equals(name, other.name) && Objects.equals(password, other.password)
-				&& role == other.role && Objects.equals(username, other.username);
+		return id == other.id && manager == other.manager && Objects.equals(name, other.name)
+				&& Objects.equals(password, other.password) && role == other.role
+				&& Objects.equals(username, other.username);
 	}
 
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", username=" + username + ", password=" + password + ", role="
+				+ role + ", manager=" + manager + "]";
+	}
 	
-
+	
 
 }

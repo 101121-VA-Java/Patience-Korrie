@@ -8,14 +8,14 @@ public class Hat {
 	private String type;
 	private int price;
 	private String color;
-	private int size;
+	private String size;
 //	private int numAvaliable;
 
 	public Hat() {
 		super();
 	}
 
-	public Hat(int id, String type, int price, String color, int size, int numAvaliable) {
+	public Hat(int id, String type, int price, String color, String size) {
 		super();
 		this.id = id;
 		this.type = type;
@@ -56,11 +56,11 @@ public class Hat {
 		this.color = color;
 	}
 
-	public int getSize() {
+	public String getSize() {
 		return size;
 	}
 
-	public void setSize(int size) {
+	public void setSize(String size) {
 		this.size = size;
 	}
 
