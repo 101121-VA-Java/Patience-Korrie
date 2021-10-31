@@ -36,13 +36,13 @@ public class EmployeeDaoTest {
 		expected.add(new Employee(0, "System", "System", "SysPass", Roles.System, 0));
 		expected.add(new Employee(1, "TestU1", "TestU2", "TestPass", Roles.Empolyee, 0));
 		
-		ed.addEmployee(new Employee(0, "Test User", "Test User", "TestPass", Roles.Empolyee, 0));
+		ed.addEmployee(new Employee(1, "Test User", "Test User", "TestPass", Roles.Empolyee, 0));
 		assertEquals(expected, ed.getAllEmployees());
 	}
 	
 	@Test
 	public void getEmployeeById() {
-		Employee expected = new Employee(0, "Enrollment Admin", "Enrollment Admin", "AdminPass", Roles.System, 0);
+		Employee expected = new Employee(0, "System", "System", "SysPass", Roles.System, 0);
 		
 		assertEquals(expected, ed.getEmployeeById(0));
 	}

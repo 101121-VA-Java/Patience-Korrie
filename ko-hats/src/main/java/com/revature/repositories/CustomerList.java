@@ -15,26 +15,36 @@ public class CustomerList implements CustomerDao {
 		customers.add(jake);
 	}
 
-
-
+	@Override
+	public List<Customer> getAllCustomer() {
+		
+		return customers;
+	}
 
 	@Override
-	public List<Customer> getAllEmployees() {
-		// TODO Auto-generated method stub
+	public Customer getCustomerById(int id) {
+		for (Customer c : customers) {
+			if(c.getId() == id) {
+				return c;
+			}
+		}
 		return null;
 	}
 
 	@Override
-	public Customer getEmployeeById(int id) {
-		// TODO Auto-generated method stub
+	public Customer addCustomer(Customer cs) {
+		cs.setId(customers.size());
+		customers.add(cs);
+		for (Customer i : customers) {
+			if(i.getId() == cs.getId()) {
+				return cs;
+			}
+		}
 		return null;
 	}
 
-	@Override
-	public Customer addEmployee(Customer cs) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+
 
 
 	

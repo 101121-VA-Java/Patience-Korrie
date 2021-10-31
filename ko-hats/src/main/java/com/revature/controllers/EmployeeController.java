@@ -2,6 +2,7 @@ package com.revature.controllers;
 
 import java.util.Scanner;
 
+import com.revature.exceptions.LoginException;
 import com.revature.models.Employee;
 import com.revature.models.Roles;
 import com.revature.services.EmployeeService;
@@ -9,10 +10,10 @@ import com.revature.services.UsernameAlreadyExistsException;
 
 public class EmployeeController {
 
-	private EmployeeService us = new EmployeeService();
+	private EmployeeService es = new EmployeeService();
 
 	
-	public void registerEmployee(Scanner scan) throws UsernameAlreadyExistsException {
+	public void registerEmployee(Scanner scan) {
 		System.out.println("Please enter a username:");
 		String username = scan.nextLine();
 		System.out.println("Please enter a password:");
@@ -22,20 +23,31 @@ public class EmployeeController {
 		
 		Employee newEmployee = new Employee(0,name,username,password,Roles.Empolyee,0);
 		
-		// TODO: check whether an employee created or not (if the method works)
-		us.addEmployee(newEmployee);
 		
-		System.out.println("Employee has been registered");
-		System.out.println();
+		try {
+			newEmployee = es.addEmployee(newEmployee);
+			System.out.println("Welcome " + newEmployee.getName() + "!");
+		} catch (UsernameAlreadyExistsException e) {
+			System.out.println("Username is already in use.\nPlease try again.");
+		}
+		
 		
 	}
 	
-//	public void EmployeeLogin(Scanner scan) {
-//		System.out.println("Please enter a username:");
-//		String username = scan.nextLine();
-//		System.out.println("Please enter a password:");
-//		String password = scan.nextLine();
-//		
-//		//use if statements to check if employee is in the list of employee
-//	}
+	public void EmployeeLogin(Scanner scan) {
+		System.out.println("Please enter a username:");
+		String username = scan.nextLine();
+		System.out.println("Please enter a password:");
+		String password = scan.nextLine();
+		
+		
+		try {
+			Employee login =  es.login(username, password);
+			System.out.println("Welcome " + login.getName() + "!");
+		} catch (LoginException l) {
+			System.out.println("Username or password is invalid. Please try again.");
+		}
+		
+		//use if statements to check if employee is in the list of employee
+	}
 }
