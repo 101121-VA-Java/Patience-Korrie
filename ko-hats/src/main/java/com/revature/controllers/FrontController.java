@@ -6,11 +6,11 @@ import java.util.Scanner;
 public class FrontController {
 	
 	private Scanner sc;
-	private EmployeeController ec;
+	private EntryController ec;
 
 	public FrontController() {
 		sc = new Scanner(System.in);
-		ec = new EmployeeController();
+		ec = new EntryController();
 	}
 	
 	public void run()  {
@@ -18,21 +18,22 @@ public class FrontController {
 		
 		while(run) {
 			System.out.println("Welcome! What would you like to do:");
-			System.out.println("Register");
-			System.out.println("Login");
-			System.out.println("Exit");
+			System.out.println("1, Register");
+			System.out.println("2, Login");
+			System.out.println("3, Exit");
 			
 			String choice = sc.nextLine();
 			
 			switch(choice) {
-			case "Register":
-				ec.registerEmployee(sc);
+			case "1":
+					ec.register(sc);
+				
 				System.out.println();
 				break;
-			case "Login":
-				ec.EmployeeLogin(sc);
+			case "2":
+				ec.Login(sc);
 				break;
-			case "Exit":
+			case "3":
 				run = false;
 				break;
 			default:

@@ -8,6 +8,11 @@ public class Customer extends User {
 		super();
 	}
 
-	public Customer(int id, String name, String username, String password, Roles role, int manager) {
+	public Customer(int id, String name, String username, String password, Roles role) {
+		super(id, name, username, password, role);
+		// TODO Auto-generated constructor stub
 	}
+
+	
+
 }

@@ -11,7 +11,7 @@ public class CustomerList implements CustomerDao {
 
 	public CustomerList() {
 		customers = new ArrayList<>();
-		Customer jake= new Customer(0, "jake", "jk", "jPass", Roles.Customer, -1);//ask about -1
+		Customer jake= new Customer(0, "jake", "jk", "jPass", Roles.Customer);
 		customers.add(jake);
 	}
 
