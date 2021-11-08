@@ -1,6 +1,9 @@
 package com.revature.controllers;
 
+
+
 import java.util.Scanner;
+
 
 
 public class FrontController {
@@ -11,6 +14,7 @@ public class FrontController {
 	public FrontController() {
 		sc = new Scanner(System.in);
 		ec = new EntryController();
+		
 	}
 	
 	public void run()  {
@@ -27,7 +31,6 @@ public class FrontController {
 			switch(choice) {
 			case "1":
 					ec.register(sc);
-				
 				System.out.println();
 				break;
 			case "2":

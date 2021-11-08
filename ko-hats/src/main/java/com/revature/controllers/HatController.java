@@ -20,7 +20,7 @@ public class HatController {
 		System.out.println("Enter Size: ");
 		String size = scan.nextLine();
 		
-		Hat newHat = new Hat(0,type,price,color,size,false);
+		Hat newHat = new Hat(0,type,price,color,size,null);
 		
 		try {
 			newHat = hs.addHat(newHat);

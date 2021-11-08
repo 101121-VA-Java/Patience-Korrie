@@ -12,7 +12,7 @@ public class HatList implements HatDao{
 
 	public HatList() {
 		hats = new ArrayList<>();
-		Hat Bucket = new Hat(0,"Bucket", 10, "Black", "M", false);
+		Hat Bucket = new Hat(0,"Bucket", 10, "Black", "M", null);
 		hats.add(Bucket);
 	}
 
@@ -57,14 +57,29 @@ public class HatList implements HatDao{
 		return true;
 	}
 
-	@Override
-	public boolean removeHat(int id) {
+	
+	public Hat removeHat(Hat rmHat){
 		for(Hat i : hats) {
-			if(i.getId()==id) {
-				hats.remove(id);//removing just the id..test
+			if(i.getType().equals(rmHat.getType())) {
+				hats.remove(i);
 			}
 		}
-		return false;
+		return rmHat;
 	}
+
+
+	@Override
+	public List<Hat> getAllAvaliableHats() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int removeHat(int id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	
 
 }

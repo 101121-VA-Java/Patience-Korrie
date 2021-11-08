@@ -4,14 +4,13 @@ import java.util.List;
 
 import com.revature.exceptions.LoginException;
 import com.revature.models.Customer;
-import com.revature.models.Employee;
-import com.revature.models.Roles;
 import com.revature.repositories.CustomerDao;
-import com.revature.repositories.CustomerList;
+import com.revature.repositories.CustomerPostgres;
 
 public class CustomerService {
 	
-	private CustomerDao cd = new CustomerList();
+//	private CustomerDao cd = new CustomerList();
+	private CustomerDao cd = new CustomerPostgres();
 	
 	
 	public Customer addCustomer(Customer c) throws UsernameAlreadyExistsException {
@@ -19,7 +18,7 @@ public class CustomerService {
 		if(newCust != null) {
 			throw new UsernameAlreadyExistsException();
 		}
-		c.setRole(Roles.Customer);
+//		c.setRole(Roles.Customer);
 		return cd.addCustomer(c);
 	}
 

@@ -5,9 +5,10 @@ import java.util.List;
 import com.revature.models.Hat;
 
 public interface HatDao {
-	List<Hat> getAllHats(); 
+	List<Hat> getAllHats();
+	List<Hat> getAllAvaliableHats();
 	Hat getHatById(int id);
 	Hat addHat(Hat hat); 
 	boolean editHat(Hat eh);   
-	boolean removeHat(int id); 
+	int removeHat(int id); 
 }

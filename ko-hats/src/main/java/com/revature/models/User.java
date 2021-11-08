@@ -8,8 +8,9 @@ public class User {
 	protected String name;
 	protected String username;
 	protected String password;
-	protected Roles role;
-	protected int manager;
+	protected String role;
+//	protected Roles role;
+	protected Employee manager;
 
 	public User() {
 		super();
@@ -18,7 +19,7 @@ public class User {
 	
 	
 
-	public User(int id, String name, String username, String password, Roles role, int manager) {
+	public User(int id, String name, String username, String password, String role, Employee manager) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -28,9 +29,8 @@ public class User {
 		this.manager = manager;
 	}
 	
-	public User(int id, String name, String username, String password, Roles role) {
+	public User(String name, String username, String password, String role) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.username = username;
 		this.password = password;
@@ -39,7 +39,7 @@ public class User {
 
 
 
-
+	
 	public int getId() {
 		return id;
 	}
@@ -96,29 +96,36 @@ public class User {
 
 
 
-	public Roles getRole() {
+	public String getRole() {
 		return role;
 	}
 
 
 
 
-	public void setRole(Roles role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
 
 
 
 
-	public int getManager() {
+	public Employee getManager() {
 		return manager;
 	}
 
 
 
 
-	public void setManager(int manager) {
+	public void setManager(Employee manager) {
 		this.manager = manager;
+	}
+
+
+
+
+	public int getManagerId() {
+		return manager.getId();
 	}
 
 
@@ -130,6 +137,8 @@ public class User {
 	}
 
 
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -139,8 +148,8 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return id == other.id && manager == other.manager && Objects.equals(name, other.name)
-				&& Objects.equals(password, other.password) && role == other.role
+		return id == other.id && Objects.equals(manager, other.manager) && Objects.equals(name, other.name)
+				&& Objects.equals(password, other.password) && Objects.equals(role, other.role)
 				&& Objects.equals(username, other.username);
 	}
 
@@ -152,4 +161,11 @@ public class User {
 		return "User [id=" + id + ", name=" + name + ", username=" + username + ", password=" + password + ", role="
 				+ role + ", manager=" + manager + "]";
 	}
+	
+	
 }
+
+
+
+
+	
