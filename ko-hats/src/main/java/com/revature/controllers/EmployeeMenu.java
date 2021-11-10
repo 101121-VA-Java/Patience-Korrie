@@ -14,12 +14,14 @@ import com.revature.models.Offers;
 import com.revature.services.EmployeeService;
 import com.revature.services.HatService;
 import com.revature.services.OffersService;
+import com.revature.services.PaymentService;
 
 
 public class EmployeeMenu {
 	private static HatService hs = new HatService();
 	private static EmployeeService es = new EmployeeService();
 	private static OffersService os = new OffersService();
+	private static PaymentService ps = new PaymentService();
 	
 
 	public void addNewHat(Scanner scan) {
@@ -129,12 +131,15 @@ public class EmployeeMenu {
 			}else if(action.toLowerCase().trim().equals("reject")) {
 				
 				System.out.println("Offer has been rejected");
+				}
 			}
-			
-				
-			}
+		}
+		
+		public void veiwAllPayment(Scanner scan) {
+			System.out.println(ps.viewAllPay());
 			
 		}
+			
 	
 	
 }

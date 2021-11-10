@@ -111,6 +111,7 @@ public class EntryController {
 				System.out.println();
 				break;
 			case "5":
+				em.veiwAllPayment(scan);
 				System.out.println();
 				break;
 			case "6":
@@ -182,6 +183,7 @@ public class EntryController {
 			System.out.println();
 			break;
 		case "5":
+			cm.makeaPayment(scan);
 			System.out.println();
 			break;
 		case "6":

@@ -21,7 +21,7 @@ public class FrontController {
 		boolean run = true;
 		
 		while(run) {
-			System.out.println("Welcome! What would you like to do:");
+			System.out.println("Welcome to KoHats! What would you like to do:");
 			System.out.println("1, Register");
 			System.out.println("2, Login");
 			System.out.println("3, Exit");

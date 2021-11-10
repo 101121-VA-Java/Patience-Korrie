@@ -1,10 +1,12 @@
 package com.revature.controllers;
 
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.revature.exceptions.SubscriberAlreadyExistsException;
 import com.revature.models.Offers;
+import com.revature.models.Payments;
 import com.revature.models.Subscribe;
 //import com.revature.services.CustomerService;
 import com.revature.services.HatService;
@@ -40,7 +42,23 @@ public class CustomerMenu {
 	}
 	
 	public void makeaPayment(Scanner scan) {
-		System.out.println(ps);
+		List<Payments> pays = ps.viewAllMyPay();
+		if(pays != null) {
+			for(Payments i : pays){
+				System.out.println(i);
+			}
+		}
+		
+		System.out.println("Please enter hat to make payment to (by Id): ");
+		int hatId =  Integer.parseInt(scan.nextLine());
+		System.out.println("Please enter amount of pay: ");
+		double pay =  Double.parseDouble(scan.nextLine());
+		
+		Payments newpay = new Payments(hatId, pay);
+		
+		newpay = ps.makepay(newpay);
+		System.out.println("Payment has been added!");
+		
 	}
 	
 	public void addSubscriber(Scanner scan) {

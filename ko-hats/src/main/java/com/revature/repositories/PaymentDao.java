@@ -7,6 +7,8 @@ import com.revature.models.Payments;
 public interface PaymentDao {
 	Payments viewRemainingPay();
 	List<Payments> viewAllPay();
+	List<Payments> viewAllMyPay();
 	Payments calWeeklyPays();
-	Payments makeaPayment();
+	Payments getPayed(int id);
+	Payments makeaPayment(Payments p);
 }
