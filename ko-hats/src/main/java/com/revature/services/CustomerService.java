@@ -2,6 +2,7 @@ package com.revature.services;
 
 import java.util.List;
 
+import com.revature.exceptions.CustomerAlreadyExistsException;
 import com.revature.exceptions.LoginException;
 import com.revature.models.Customer;
 import com.revature.repositories.CustomerDao;
@@ -13,10 +14,10 @@ public class CustomerService {
 	private CustomerDao cd = new CustomerPostgres();
 	
 	
-	public Customer addCustomer(Customer c) throws UsernameAlreadyExistsException {
+	public Customer addCustomer(Customer c) throws CustomerAlreadyExistsException {
 		Customer newCust = this.getCustomerByUsername(c.getUsername());
 		if(newCust != null) {
-			throw new UsernameAlreadyExistsException();
+			throw new CustomerAlreadyExistsException();
 		}
 //		c.setRole(Roles.Customer);
 		return cd.addCustomer(c);

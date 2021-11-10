@@ -1,17 +1,21 @@
 package com.revature.repositories;
 
 import java.io.IOException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.revature.models.Hat;
 
 import util.ConnectionUtil;
 
 public class HatPostgres implements HatDao{
+	private static Logger log = LogManager.getRootLogger();
 
 	@Override
 	public List<Hat> getAllHats() {
@@ -36,7 +40,7 @@ List<Hat> hats = new ArrayList<>();
 			}
 			
 			} catch (SQLException |IOException e) {
-				// TODO Auto-generated catch block
+				log.error("Error while trying to get item.");
 				e.printStackTrace();
 			} 
 		return hats;
@@ -50,7 +54,7 @@ List<Hat> hats = new ArrayList<>();
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql);
 
-			ps.setInt(1, id); // 1 refers to the first '?'
+			ps.setInt(1, id);
 
 			ResultSet rs = ps.executeQuery();
 
@@ -91,7 +95,7 @@ List<Hat> hats = new ArrayList<>();
 			}
 
 		} catch (SQLException | IOException e) {
-			// TODO Auto-generated catch block
+			log.error("Error while trying to add item.");
 			e.printStackTrace();
 		}
 		return resultId;
@@ -111,13 +115,13 @@ List<Hat> hats = new ArrayList<>();
 			ps.setInt(2, eh.getPrice());
 			ps.setString(3, eh.getColor());
 			ps.setString(4, eh.getSize());
-			ps.setInt(5, eh.getOwnedById());
+			ps.setInt(5, eh.getOwnedBy());
 			ps.setInt(6, eh.getId());
 
 			rowsChanged = ps.executeUpdate();
 
 		} catch (SQLException | IOException e) {
-			// TODO Auto-generated catch block
+			log.error("Error while trying to update item.");
 			e.printStackTrace();
 		}
 
@@ -139,6 +143,7 @@ List<Hat> hats = new ArrayList<>();
 
 			rowsChanged1 = ps.executeUpdate();
 		} catch (SQLException | IOException e) {
+			log.error("Error while trying to remove item.");
 			e.printStackTrace();
 		}
 		return rowsChanged1;
@@ -146,7 +151,7 @@ List<Hat> hats = new ArrayList<>();
 
 	@Override
 	public List<Hat> getAllAvaliableHats() {
-		String sql = "select h_type,h_price,h_color,h_size from hats where h_ownedBy_id is NULL;";
+		String sql = "select h_id, h_type,h_price,h_color,h_size from hats where h_ownedBy_id is NULL;";
 		
 		List<Hat> hats = new ArrayList<>();
 		
@@ -155,19 +160,52 @@ List<Hat> hats = new ArrayList<>();
 			ResultSet rst = ps.executeQuery();
 			
 			while (rst.next()) {
+				int id = rst.getInt("h_id");
 				String type = rst.getString("h_type");
 				int price = rst.getInt("h_price");
 				String color = rst.getString("h_color");
 				String size = rst.getString("h_size");
 				
-				Hat newHat = new Hat( type, price, color, size);
+				Hat newHat = new Hat( id, type, price, color, size);
 				hats.add(newHat);
 			}
 		} catch (SQLException | IOException e) {
+			log.error("Error while trying to get items.");
 			e.printStackTrace();
 		}
 		
 		return hats;
 	}
+
+	@Override
+	public List<Hat> viewOwnedHats() {
+		String sql = "select h_id, h_type, h_price, h_color, h_size from hats h join offers o on h.h_id=o.o_hat;";
+		List<Hat> ownedhats = new ArrayList<>();
+		
+		try (Connection connect = ConnectionUtil.getConnectionFromFile()) {
+			PreparedStatement ps = connect.prepareStatement(sql);
+			ResultSet rst = ps.executeQuery();
+			
+			
+				while (rst.next()) {
+					int id = rst.getInt("h_id");
+					String type = rst.getString("h_type");
+					int price = rst.getInt("h_price");
+					String color = rst.getString("h_color");
+					String size = rst.getString("h_size");
+					
+					Hat newHat = new Hat( id, type, price, color, size);
+					ownedhats.add(newHat);
+				
+			}
+		} catch (SQLException | IOException e) {
+			log.error("Error while trying to get items.");
+			e.printStackTrace();
+		}
+		
+		return ownedhats;
+	}
+
+
 
 }

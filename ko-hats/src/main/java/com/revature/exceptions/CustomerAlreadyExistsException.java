@@ -1,6 +1,6 @@
 package com.revature.exceptions;
 
-public class UsernameDoesNotExistsException extends Exception {
+public class CustomerAlreadyExistsException extends Exception {
 
 	/**
 	 * 

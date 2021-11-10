@@ -49,7 +49,7 @@ public class CustomerPostgres implements CustomerDao {
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql);
 
-			ps.setInt(1, id); // 1 refers to the first '?'
+			ps.setInt(1, id); 
 
 			ResultSet rs = ps.executeQuery();
 

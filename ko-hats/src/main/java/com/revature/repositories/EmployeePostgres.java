@@ -37,7 +37,6 @@ public class EmployeePostgres implements EmployeeDao {
 			}
 			
 			} catch (SQLException |IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
 		return employees;
@@ -51,7 +50,7 @@ public class EmployeePostgres implements EmployeeDao {
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql);
 
-			ps.setInt(1, id); // 1 refers to the first '?'
+			ps.setInt(1, id);
 
 			ResultSet rs = ps.executeQuery();
 
@@ -74,8 +73,8 @@ public class EmployeePostgres implements EmployeeDao {
 	@Override
 	public Employee addEmployee(Employee employee) {
 		Employee resultId= null;
-		String sql = "insert into employees (e_name, e_username, e_password, e_role, man_e_id) "
-				+ "values (?, ?, ?, ?, ?) returning e_id;";
+		String sql = "insert into employees (e_name, e_username, e_password, e_role) "
+				+ "values (?, ?, ?, ?) returning e_id;";
 		
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql);
@@ -84,7 +83,6 @@ public class EmployeePostgres implements EmployeeDao {
 			ps.setString(2, employee.getUsername());
 			ps.setString(3, employee.getPassword());
 			ps.setString(4, employee.getRole());
-			ps.setInt(5, employee.getManagerId());
 
 			ResultSet rs = ps.executeQuery();
 
@@ -93,7 +91,6 @@ public class EmployeePostgres implements EmployeeDao {
 			}
 
 		} catch (SQLException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return resultId;
@@ -108,11 +105,8 @@ public class EmployeePostgres implements EmployeeDao {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setInt(1, id);
 
-			// if 1 is returned, indicates that 1 record was successfully deleted from the
-			// table
 			rowsChanged = ps.executeUpdate();
 		} catch (SQLException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return rowsChanged;
@@ -138,7 +132,6 @@ public class EmployeePostgres implements EmployeeDao {
 			rowsChanged = ps.executeUpdate();
 
 		} catch (SQLException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -148,5 +141,6 @@ public class EmployeePostgres implements EmployeeDao {
 			return false;
 		}
 	}
+
 
 }

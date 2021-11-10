@@ -8,6 +8,8 @@ import com.revature.models.Hat;
 import com.revature.repositories.HatDao;
 import com.revature.repositories.HatPostgres;
 
+
+
 public class HatService {
 	
 	private HatDao hs = new HatPostgres();
@@ -16,6 +18,7 @@ public class HatService {
 		Hat newHat = this.getHatByType(h.getType());
 		if(newHat != null) {
 			throw new HatAlreadyExistsException();
+			
 		}
 		
 		return hs.addHat(h);
@@ -43,6 +46,14 @@ public class HatService {
 		return hs.getHatById(id);
 	}
 	
+
+	public List<Hat> viewOwnedHats() {
+		
+				return hs.viewOwnedHats();
+		}
+		
+		
+	
 	
 	public int removeHatById(int id1) throws HatDoesNotExistException {
 		int result =-1;
@@ -54,6 +65,8 @@ public class HatService {
 				throw new HatDoesNotExistException();
 				}
 		}
+
+
 			
 	}
 		

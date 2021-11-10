@@ -28,6 +28,12 @@ public class Employee extends User{
 		this.emp =emp;
 	}
 
+	
+
+	public Employee(int id) {
+		this.id = id;
+	}
+
 	public String getEmp() {
 		return emp;
 	}

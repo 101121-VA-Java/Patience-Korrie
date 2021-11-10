@@ -3,14 +3,15 @@ package com.revature.controllers;
 
 import java.util.Scanner;
 
-
-
+import com.revature.exceptions.CustomerAlreadyExistsException;
 import com.revature.exceptions.LoginException;
 import com.revature.models.Customer;
 import com.revature.models.Employee;
 import com.revature.services.CustomerService;
 import com.revature.services.EmployeeService;
-import com.revature.services.UsernameAlreadyExistsException;
+
+
+
 
 public class EntryController {
 	private static FrontController fc = new FrontController();
@@ -19,6 +20,7 @@ public class EntryController {
 	int role;
 	private static EmployeeMenu em = new EmployeeMenu();
 	private static CustomerMenu cm = new CustomerMenu();
+	
 	
 	
 	public void register(Scanner scan) {
@@ -35,7 +37,7 @@ public class EntryController {
 			try {
 				newCustomer = cs.addCustomer(newCustomer);
 				System.out.println("Registeration Successful!");
-			} catch (UsernameAlreadyExistsException e) {
+			} catch (CustomerAlreadyExistsException e) {
 				System.out.println("Username is already in use.\nPlease try again.");
 			}
 		}
@@ -84,9 +86,9 @@ public class EntryController {
 		while(home == false) {
 			System.out.println("What would you like to do:");
 			System.out.println("1, Add a hat");
-			System.out.println("2, Accept a pending offer for a hat");
-			System.out.println("3, Reject a pending offer");
-			System.out.println("4, Remove a hat");
+			System.out.println("2, Accept or Reject a pending offer");
+			System.out.println("3, Remove a hat");
+			System.out.println("4, edit a hat");
 			System.out.println("5, View all payments");
 			System.out.println("6, Back to home menu");
 			
@@ -99,17 +101,17 @@ public class EntryController {
 				System.out.println();
 				break;
 			case "2":
-				
+				em.AcceptOrReject(scan);
 				break;
 			case "3":
-				
-				break;
-			case "4":
 				em.removeExitingHat(scan);
 				System.out.println();
 				break;
+			case "4":
+				System.out.println();
+				break;
 			case "5":
-				
+				System.out.println();
 				break;
 			case "6":
 				fc.run();
@@ -122,33 +124,27 @@ public class EntryController {
 	
 	public static void ManagerMenu(Scanner scan) {
 		System.out.println("What would you like to do:");
-		System.out.println("1, Reject all all other pending offers");
-		System.out.println("2, Update a hat to owned state");
-		System.out.println("3, Calculate weekly payments");
-		System.out.println("4, Add an Employee");
-		System.out.println("5, Back to home menu");
+		System.out.println("1,  view sales history of all offers");
+		System.out.println("2, Add an Employee");
+		System.out.println("3, remove an Employee");
+		System.out.println("4, Back to home menu");
 		
 		String choice = scan.nextLine();
 		
 		
 		switch(choice) {
 		case "1":
-			em.addNewHat(scan);
 			System.out.println();
 			break;
 		case "2":
-			
-			break;
-		case "3":
-			
-			break;
-		case "4":
+			em.addEmp(scan);
 			System.out.println();
 			break;
-		case "5":
-			
+		case "3":
+			em.removeEmp(scan);
+			System.out.println();
 			break;
-		case "6":
+		case "4":
 			fc.run();
 			break;
 		default:
@@ -164,7 +160,9 @@ public class EntryController {
 		System.out.println("2, Make an offer for a hat");
 		System.out.println("3, View your hats");
 		System.out.println("4, View remaining payments for a hat");
-		System.out.println("5, Back to home menu");
+		System.out.println("5, Make a payment");
+		System.out.println("6, Subscribe to KoHats");
+		System.out.println("7, Back to home menu");
 		
 		String choice1 = scan.nextLine();
 		
@@ -175,15 +173,22 @@ public class EntryController {
 			System.out.println();
 			break;
 		case "2":
-			
+			cm.makeOffer(scan);
 			break;
 		case "3":
-			
+			cm.viewOwnedHats(scan);
 			break;
 		case "4":
 			System.out.println();
 			break;
 		case "5":
+			System.out.println();
+			break;
+		case "6":
+			cm.addSubscriber(scan);
+			System.out.println();
+			break;
+		case "7":
 			fc.run();
 			break;
 		default:

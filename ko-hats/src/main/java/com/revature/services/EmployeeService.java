@@ -2,8 +2,9 @@ package com.revature.services;
 
 import java.util.List;
 
+import com.revature.exceptions.EmployeeAlreadyExistsException;
 import com.revature.exceptions.LoginException;
-import com.revature.exceptions.UsernameDoesNotExistsException;
+import com.revature.exceptions.EmployeeDoesNotExistsException;
 import com.revature.models.Employee;
 import com.revature.repositories.EmployeeDao;
 import com.revature.repositories.EmployeePostgres;
@@ -14,10 +15,10 @@ public class EmployeeService {
 	private EmployeeDao ed = new EmployeePostgres();
 
 	
-	public Employee addEmployee(Employee e) throws UsernameAlreadyExistsException{
+	public Employee addEmployee(Employee e) throws EmployeeAlreadyExistsException{
 		Employee newEmp = this.getEmployeeByUsername(e.getUsername());
 		if(newEmp != null) {
-			throw new UsernameAlreadyExistsException();
+			throw new EmployeeAlreadyExistsException();
 		}
 //		e.setRole(Roles.Empolyee);
 ////		e.setManager(ed.getEmployeeById(0));
@@ -55,15 +56,15 @@ public class EmployeeService {
 		throw new LoginException();
 	}
 	
-	public int deleteEmployee(int id) throws UsernameDoesNotExistsException {
+	public int deleteEmployee(int id) throws EmployeeDoesNotExistsException {
 		int result =-1;
 		Employee rmEmp = this.getEmployeeById(id);
 		if(rmEmp != null) {
-			throw new UsernameDoesNotExistsException();
+			result=ed.deleteEmployee(id);
+			return result;
 		}
 		
-		result=ed.deleteEmployee(id);
-		return result;
+		throw new EmployeeDoesNotExistsException();
 	}
 	
 	
