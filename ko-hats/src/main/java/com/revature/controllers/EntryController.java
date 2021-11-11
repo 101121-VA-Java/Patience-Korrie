@@ -24,7 +24,6 @@ public class EntryController {
 	
 	
 	public void register(Scanner scan) {
-		System.out.println(es.getAllEmployee());
 		System.out.println("Please enter a username:");
 		String username = scan.nextLine();
 		System.out.println("Please enter a password:");

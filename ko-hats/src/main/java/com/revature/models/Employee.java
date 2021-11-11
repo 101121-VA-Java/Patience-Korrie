@@ -33,6 +33,19 @@ public class Employee extends User{
 	public Employee(int id) {
 		this.id = id;
 	}
+	
+//	public Employee( String name, String username, String password, String role, Employee manager) {
+//		super(name, username, password, role, manager);
+//		
+//	}
+	
+	public Employee( String name, String username, String password, String role, int man_id) {
+		super( name, username, password, role );
+		this.man_id = man_id;
+	}
+
+
+	
 
 	public String getEmp() {
 		return emp;
@@ -49,9 +62,7 @@ public class Employee extends User{
 	public void setMan_id(int man_id) {
 		this.man_id = man_id;
 	}
-	
-	
-	
+
 	
 
 }

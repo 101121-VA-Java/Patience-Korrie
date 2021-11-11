@@ -11,7 +11,6 @@ import com.revature.repositories.EmployeePostgres;
 
 public class EmployeeService {
 	
-//	private EmployeeDao ed = new EmployeeList();
 	private EmployeeDao ed = new EmployeePostgres();
 
 	
@@ -20,8 +19,6 @@ public class EmployeeService {
 		if(newEmp != null) {
 			throw new EmployeeAlreadyExistsException();
 		}
-//		e.setRole(Roles.Empolyee);
-////		e.setManager(ed.getEmployeeById(0));
 		return ed.addEmployee(e);
 	}
 	

@@ -39,7 +39,19 @@ public class User {
 
 
 
-	
+
+	public User(String name, String username, String password, String role, Employee manager) {
+		super();
+		this.name = name;
+		this.username = username;
+		this.password = password;
+		this.role = role;
+		this.manager = manager;
+	}
+
+
+
+
 	public int getId() {
 		return id;
 	}
