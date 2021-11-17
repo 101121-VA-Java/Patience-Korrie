@@ -1,6 +1,4 @@
-body{
-    
-}
+
 
 #navbar{
     background-color: #2E0A36;   /* 2D0937 */
@@ -63,6 +61,12 @@ body{
     transform-origin: bottom left;
   }
 
+  @media (max-width: 540px){
+    .btnn {
+        display: block;
+    }
+}
+
     .form-group {
         margin-right: 10%;
         margin-left: 10%;
@@ -82,3 +86,19 @@ body{
     background-color: #2E0A36;
 
  }
+
+ @media all and (max-width:30em){
+     .btnn{
+        display: block;
+        margin: 0.4em auto;
+    }
+}
+
+@media (min-width: 200px){
+    .navbar-expand-lg .navbar-nav {
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+        flex-direction: row;
+    }
+}
