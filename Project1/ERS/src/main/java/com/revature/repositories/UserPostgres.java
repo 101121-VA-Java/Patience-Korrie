@@ -86,7 +86,7 @@ public class UserPostgres implements UserDao{
 	}
 
 	@Override
-	public boolean updateEmployeer(Users employee) {
+	public boolean updateEmployee(Users employee) {
 		String sql = "update users set u_first_name = ?, u_last_name = ?, u_username = ?, u_password = ?, u_email = ?, u_role = ?" + "Where u_id = ?;";
 		int rowsChanged = -1;
 		

@@ -36,7 +36,7 @@ public class UserService {
 	}
 	
 	public boolean updateEmployeer(Users employee) {
-		return ud.updateEmployeer(employee);
+		return ud.updateEmployee(employee);
 		
 	}
 	

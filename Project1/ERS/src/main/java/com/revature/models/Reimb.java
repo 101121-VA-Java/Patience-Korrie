@@ -2,7 +2,7 @@ package com.revature.models;
 
 import java.util.Objects;
 
-public class Reimbursement {
+public class Reimb {
 	private int id;
 	private double amount;
 	private boolean submitted;
@@ -15,12 +15,12 @@ public class Reimbursement {
 	private Type type_Id;
 	
 	
-	public Reimbursement() {
+	public Reimb() {
 		super();
 	}
 
 
-	public Reimbursement(int id, double amount, boolean submitted, boolean resolved, String description, String recipt,
+	public Reimb(int id, double amount, boolean submitted, boolean resolved, String description, String recipt,
 			Users author, Users resolver, Status status_Id, Type type_Id) {
 		super();
 		this.id = id;
@@ -150,7 +150,7 @@ public class Reimbursement {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Reimbursement other = (Reimbursement) obj;
+		Reimb other = (Reimb) obj;
 		return Double.doubleToLongBits(amount) == Double.doubleToLongBits(other.amount)
 				&& Objects.equals(author, other.author) && Objects.equals(description, other.description)
 				&& id == other.id && Objects.equals(recipt, other.recipt) && resolved == other.resolved
