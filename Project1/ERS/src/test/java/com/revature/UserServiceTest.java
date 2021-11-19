@@ -43,7 +43,19 @@ public class UserServiceTest{
 	}
 	
 	@Test	
-	public void updateEmployeeTestValid() {
+	public void updateEmployeeTestValid() {		
+		Mockito.when(ed.updateEmployee(new Users("username", "firstName", "lastName", "password1","email", 2))).thenReturn(true);
+		
+		boolean expected = true;
+		
+		boolean actual;
+		actual = es.updateEmployee(new Users("username", "firstName", "lastName", "password1","email",2));
+		assertEquals(expected, actual);
+		
+	}
+	
+	@Test	
+	public void loginTest() {
 		
 	}
 	
