@@ -73,7 +73,7 @@
     }
 
   form{
-    margin-top: 10%;
+    margin-top: 5%;
   }
 
   .form-control{
@@ -101,4 +101,11 @@
         -ms-flex-direction: row;
         flex-direction: row;
     }
+}
+
+#modal-top{
+    margin-top: 0%;
+}
+.table td, .table th{
+    border-top: none;
 }

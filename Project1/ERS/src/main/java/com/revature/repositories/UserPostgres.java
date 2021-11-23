@@ -26,6 +26,7 @@ public class UserPostgres implements UserDao{
 	 * @return a List of Employees or an empty list if none are found
 	 */
 	
+	
 	@Override
 	public List<Users> getAllEmployee() {
 		String sql = "select * from users u " +"join roles r on u.u_roleId = r.r_id;";
@@ -49,7 +50,7 @@ public class UserPostgres implements UserDao{
 				Roles role1 = new Roles(roleId,role);
 				
 				
-				Users emp = new Users(id, firstName, lastName,username,password,email,role1);
+				Users emp = new Users(id, username, password, firstName, lastName, email, role1);
 				employees.add(emp);
 				}
 		
@@ -85,7 +86,7 @@ public class UserPostgres implements UserDao{
 				String username = rs.getString("u_username");
 				String password = rs.getString("u_password");
 				String email = rs.getString("u_email");
-				int role = rs.getInt("u_role");
+				int role = rs.getInt("u_roleid");
 				
 				emp = new Users(id1, firstName, lastName, username, password, email, role);
 				
@@ -116,7 +117,7 @@ public class UserPostgres implements UserDao{
 
 	@Override
 	public boolean updateEmployee(Users employee) {
-		String sql = "update users set u_first_name = ?, u_last_name = ?, u_username = ?, u_password = ?, u_email = ?" + "Where u_id = ?;";
+		String sql = "update users set u_first_name = ?, u_last_name = ?, u_username = ?, u_password = ?, u_email = ?, u_roleId = ?" + "Where u_id = ?;";
 		int rowsChanged = -1;
 		
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
@@ -127,7 +128,7 @@ public class UserPostgres implements UserDao{
 			ps.setString(3, employee.getUsername());
 			ps.setString(4, employee.getPassword());
 			ps.setString(5, employee.getEmail());
-//			ps.setInt(6, employee.getRole());
+			ps.setInt(6, employee.getRole().getId());
 			
 			rowsChanged = ps.executeUpdate();
 			
@@ -141,6 +142,34 @@ public class UserPostgres implements UserDao{
 		}
 	}
 
+	@Override
+	public Users getEmployeeByUsername(String username) {
+		String sql = "select * from users where u_username = ? ";
+		Users emp = null;
+		
+		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
+			PreparedStatement ps = con.prepareStatement(sql);
 
+			ps.setString(1, username);
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				int id1 = rs.getInt("u_id");
+				String firstName = rs.getString("u_first_name");
+				String lastName = rs.getString("u_last_name");
+				String username1 = rs.getString("u_username");
+				String password = rs.getString("u_password");
+				String email = rs.getString("u_email");
+				int role = rs.getInt("u_roleid");
+				
+				emp = new Users(id1, firstName, lastName, username1, password, email, role);
+				
+			}
+		}catch (SQLException | IOException e) {
+			e.printStackTrace();
+		}
+		return emp;
+	}
 
 }

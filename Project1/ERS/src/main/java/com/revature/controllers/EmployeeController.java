@@ -8,16 +8,14 @@ import io.javalin.http.HttpCode;
 
 public class EmployeeController {
 	
-	private static UserService es = new UserService();
+	private static UserService us = new UserService();
 	
 	
-	public static void getEmployee(Context ctx) {
-
-//		String token = ctx.header("Authorization");
+	public static void getEmployeeById(Context ctx) {
 		
 		// pathParam("nameOfPathParam");
 		int id = Integer.parseInt(ctx.pathParam("id"));
-		Users u = es.getEmployeeById(id);
+		Users u = us.getEmployeeById(id);
 		
 		if (u != null) {
 			ctx.json(u);
@@ -29,6 +27,20 @@ public class EmployeeController {
 		
 	}
 	
+	
+	public static void updateEmployee(Context ctx) {
+		//String token = ctx.header("Authorization");
+		
+		int id = Integer.parseInt(ctx.pathParam("id"));
+		Users u = ctx.bodyAsClass(Users.class);
+		u.setId(id);
+		
+		if (us.updateEmployee(u)) {
+			ctx.status(HttpCode.OK);
+		} else {
+			ctx.status(400);
+		}
+	}
 	
 	
 }
