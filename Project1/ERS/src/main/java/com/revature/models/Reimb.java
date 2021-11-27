@@ -5,14 +5,14 @@ import java.util.Objects;
 public class Reimb {
 	private int id;
 	private double amount;
-	private boolean submitted;
-	private boolean resolved;
+	private String submitted;
+	private String resolved;
 	private String description;
 	private String recipt;
 	private Users author;
 	private Users resolver;
-	private Status status_Id;
-	private Type type_Id;
+	private Status status;
+	private Type type;
 	
 	
 	public Reimb() {
@@ -20,8 +20,8 @@ public class Reimb {
 	}
 
 
-	public Reimb(int id, double amount, boolean submitted, boolean resolved, String description, String recipt,
-			Users author, Users resolver, Status status_Id, Type type_Id) {
+	public Reimb(int id, double amount, String submitted, String resolved, String description, String recipt,
+			Users author, Users resolver, Status status, Type type) {
 		super();
 		this.id = id;
 		this.amount = amount;
@@ -31,8 +31,58 @@ public class Reimb {
 		this.recipt = recipt;
 		this.author = author;
 		this.resolver = resolver;
-		this.status_Id = status_Id;
-		this.type_Id = type_Id;
+		this.status = status;
+		this.type = type;
+	}
+
+
+	public Reimb(int id, double amount, String submitted, String description, Users author, Status status, Type type) {
+		super();
+		this.id = id;
+		this.amount = amount;
+		this.submitted = submitted;
+		this.description = description;
+		this.author = author;
+		this.status = status;
+		this.type = type;
+	}
+
+
+
+	
+
+
+	public Reimb(int id, double amount, String submitted, int status,  int type, String description, int author) {
+		super();
+		this.id = id;
+		this.amount = amount;
+		this.submitted = submitted;
+		this.description = description;
+	
+		
+	}
+
+
+
+
+
+	public Reimb(int id, double amount, String submitted, int status, String description, int authorId,
+			int type) {
+		super();
+		this.id = id;
+		this.amount = amount;
+		this.submitted = submitted;
+		this.description = description;
+		}
+
+
+	public Reimb(int id, double amount, String submitted, String resolved, String description, int resolverId,
+			int type) {
+		super();
+		this.id = id;
+		this.amount = amount;
+		this.submitted = submitted;
+		this.description = description;
 	}
 
 
@@ -56,22 +106,22 @@ public class Reimb {
 	}
 
 
-	public boolean isSubmitted() {
+	public String getSubmitted() {
 		return submitted;
 	}
 
 
-	public void setSubmitted(boolean submitted) {
+	public void setSubmitted(String submitted) {
 		this.submitted = submitted;
 	}
 
 
-	public boolean isResolved() {
+	public String getResolved() {
 		return resolved;
 	}
 
 
-	public void setResolved(boolean resolved) {
+	public void setResolved(String resolved) {
 		this.resolved = resolved;
 	}
 
@@ -116,29 +166,29 @@ public class Reimb {
 	}
 
 
-	public Status getStatus_Id() {
-		return status_Id;
+	public Status getStatus() {
+		return status;
 	}
 
 
-	public void setStatus_Id(Status status_Id) {
-		this.status_Id = status_Id;
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 
-	public Type getType_Id() {
-		return type_Id;
+	public Type getType() {
+		return type;
 	}
 
 
-	public void setType_Id(Type type_Id) {
-		this.type_Id = type_Id;
+	public void setType(Type type) {
+		this.type = type;
 	}
 
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(amount, author, description, id, recipt, resolved, resolver, status_Id, submitted, type_Id);
+		return Objects.hash(amount, author, description, id, recipt, resolved, resolver, status, submitted, type);
 	}
 
 
@@ -153,19 +203,19 @@ public class Reimb {
 		Reimb other = (Reimb) obj;
 		return Double.doubleToLongBits(amount) == Double.doubleToLongBits(other.amount)
 				&& Objects.equals(author, other.author) && Objects.equals(description, other.description)
-				&& id == other.id && Objects.equals(recipt, other.recipt) && resolved == other.resolved
-				&& Objects.equals(resolver, other.resolver) && Objects.equals(status_Id, other.status_Id)
-				&& submitted == other.submitted && Objects.equals(type_Id, other.type_Id);
+				&& id == other.id && Objects.equals(recipt, other.recipt) && Objects.equals(resolved, other.resolved)
+				&& Objects.equals(resolver, other.resolver) && Objects.equals(status, other.status)
+				&& Objects.equals(submitted, other.submitted) && Objects.equals(type, other.type);
 	}
 
 
 	@Override
 	public String toString() {
-		return "Reimbursement [id=" + id + ", amount=" + amount + ", submitted=" + submitted + ", resolved=" + resolved
+		return "Reimb [id=" + id + ", amount=" + amount + ", submitted=" + submitted + ", resolved=" + resolved
 				+ ", description=" + description + ", recipt=" + recipt + ", author=" + author + ", resolver="
-				+ resolver + ", status_Id=" + status_Id + ", type_Id=" + type_Id + "]";
+				+ resolver + ", status=" + status + ", type=" + type + "]";
 	}
-	
+
 	
 
 }

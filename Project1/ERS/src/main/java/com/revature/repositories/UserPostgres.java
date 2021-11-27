@@ -29,7 +29,7 @@ public class UserPostgres implements UserDao{
 	
 	@Override
 	public List<Users> getAllEmployee() {
-		String sql = "select * from users u " +"join roles r on u.u_roleId = r.r_id;";
+		String sql = "select * from users u " + "join roles r on u.u_roleId = r.r_id;";
 		
 		List<Users> employees = new ArrayList<>();
 		
@@ -88,7 +88,7 @@ public class UserPostgres implements UserDao{
 				String email = rs.getString("u_email");
 				int role = rs.getInt("u_roleid");
 				
-				emp = new Users(id1, firstName, lastName, username, password, email, role);
+				emp = new Users(id1, username, password, firstName, lastName, email, role);
 				
 			}
 		}catch (SQLException | IOException e) {
@@ -117,18 +117,20 @@ public class UserPostgres implements UserDao{
 
 	@Override
 	public boolean updateEmployee(Users employee) {
-		String sql = "update users set u_first_name = ?, u_last_name = ?, u_username = ?, u_password = ?, u_email = ?, u_roleId = ?" + "Where u_id = ?;";
+		String sql = "update users set  u_username = ?,u_password = ?,u_first_name = ?,u_last_name = ?,u_email = ?"
+						+ "Where u_id = ?;";
 		int rowsChanged = -1;
 		
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql);
 
-			ps.setString(1, employee.getFirstName());
-			ps.setString(2, employee.getLastName());
-			ps.setString(3, employee.getUsername());
-			ps.setString(4, employee.getPassword());
+			ps.setString(1, employee.getUsername());
+			ps.setString(2, employee.getPassword());
+			ps.setString(3, employee.getFirstName());
+			ps.setString(4, employee.getLastName());
 			ps.setString(5, employee.getEmail());
-			ps.setInt(6, employee.getRole().getId());
+//			ps.setInt(6, employee.getRole().getId());
+			ps.setInt(6, employee.getId());
 			
 			rowsChanged = ps.executeUpdate();
 			

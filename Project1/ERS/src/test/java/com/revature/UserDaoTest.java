@@ -14,12 +14,13 @@ import com.revature.repositories.UserPostgres;
 
 public class UserDaoTest {
 
+	@SuppressWarnings("unused")
 	private UserDao ud = new UserPostgres();
 	
 	@Test
 	public void getAllEmployees() {
 		
-		System.out.println(ud.getAllEmployee().toString());
+		//System.out.println(ud.getAllEmployee().toString());
 		
 		
 	}

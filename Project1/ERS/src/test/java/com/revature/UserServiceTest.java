@@ -71,7 +71,7 @@ public class UserServiceTest{
 		String expected = user.getId()+ ":" + user.getRole();
 		UserService us = new UserService();
 		String actual = us.login("jwells", "wells");
-		System.out.println("token "  +actual);
+//		System.out.println("token "  +actual);
 		
 		assertEquals(expected, actual);
 	}
@@ -79,7 +79,9 @@ public class UserServiceTest{
 	@Test 
 	public void getByUsername() {
 		UserService us = new UserService();
-		System.out.println(us.getEmployeeByUsername("jwells"));
+		@SuppressWarnings("unused")
+		Users u = us.getEmployeeByUsername("jwells");
+//		System.out.println(us.getEmployeeByUsername("jwells"));
 
 	}
 	

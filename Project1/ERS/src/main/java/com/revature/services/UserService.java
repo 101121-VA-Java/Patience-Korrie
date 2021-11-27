@@ -27,9 +27,7 @@ public class UserService {
 	
 	public Users getEmployeeByUsername(String username) {
 		List<Users> employees = getAllUsers();
-		System.out.println(employees);
 		for(Users e : employees) {
-			System.out.println(e.getUsername());
 			if(e.getUsername().equals(username)) {				
 				return e;
 			}
@@ -38,11 +36,38 @@ public class UserService {
 	}
 	
 	public Users getEmployeeById(int id) {
-		return ud.getEmployeeById(id);
+		Users e = ud.getEmployeeById(id);
+		if (e != null) {
+			e.setPassword(null);
+		}
+		
+		return e;
 	}
 	
 	public boolean updateEmployee(Users e) {
-		return ud.updateEmployee(e);
+		Users eUpdate = ud.getEmployeeById(e.getId());
+		System.out.println(eUpdate);
+		if(e.getFirstName() !=null && !e.getFirstName().equals(eUpdate.getFirstName())) {
+			eUpdate.setFirstName(e.getFirstName());
+			System.out.println(eUpdate +"test");
+		}
+		
+		if(e.getLastName() !=null && !e.getLastName().equals(eUpdate.getLastName())) {
+			eUpdate.setLastName(e.getLastName());
+		}
+		
+		if(e.getUsername() !=null && !e.getUsername().equals(eUpdate.getUsername())) {
+			eUpdate.setUsername(e.getUsername());
+		}
+		
+		if(e.getPassword() !=null && !e.getPassword().equals(eUpdate.getPassword())) {
+			eUpdate.setPassword(e.getPassword());
+		}
+		if(e.getEmail() !=null && !e.getEmail().equals(eUpdate.getEmail())) {
+			eUpdate.setEmail(e.getEmail());
+		}
+				
+			return 	ud.updateEmployee(eUpdate);
 		
 	}
 	
@@ -59,7 +84,6 @@ public class UserService {
 	public String login(String username, String password)  {
 		Users employee = getEmployeeByUsername(username);
 		String token = null;
-		System.out.println(employee.getUsername() + " pass " + employee.getPassword());
 		
 			if (employee!=null &&  employee.getPassword().equals(password)) {
 				
@@ -76,21 +100,21 @@ public class UserService {
 //		}
 //		
 //		String[] info = token.split(":"); 
-//		// retrieve user id
+//		
 //		int token_id = Integer.parseInt(info[0]);
-//		// retrieve user role
+//		
 //		int token_role = Integer.parseInt(info[1]);
 //		
 //		Users principal = ud.getEmployeeById(token_id);
-//		int principal_role = principal.getRole().getId();
-//		if(principal != null && token_role==principal_role
-//				&& Arrays.asList(allowedRoles).contains(token_role)) {//errorr
+//		Roles principal_role = principal.getRole();
+//		if(principal != null && token_role==principal_role.getId()
+//				&& Arrays.asList(allowedRoles).contains(principal_role)) {
 //			return true;
 //		}
 //		
 //		return false;
-//		
-//	}
+		
+	//}
 	
 	
 	

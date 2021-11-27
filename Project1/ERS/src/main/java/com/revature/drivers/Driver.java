@@ -34,7 +34,19 @@ public class Driver {
 			
 			// /manager
 			path("manager", () -> {
-				get(ManagerController::getAllEmployees);
+				path("employees", () ->{
+					get(ManagerController::getAllEmployees);
+				});
+				
+				path("update", () -> {	
+					put(ManagerController::updateEmployeeInfo); //An Employee can view their information
+					
+				});
+				
+				path("{id}", () -> {
+					get(ManagerController::getEmployeeById);
+				});
+				
 		
 				post(ManagerController::registerEmployee);
 				
@@ -42,8 +54,8 @@ public class Driver {
 			
 //			 /employee
 			path("employee", () -> {
-				path("{id}", () -> {
-					get(EmployeeController::getEmployeeById);
+//				path("{id}", () -> {
+//					get(EmployeeController::getEmployeeById);
 				path("account", ()->{				
 						get(EmployeeController::updateEmployee); //An Employee can view their information
 						put(EmployeeController::updateEmployee);
@@ -52,10 +64,7 @@ public class Driver {
 				});
 				
 				
-			});
-//			
-			
+			});				
 				
-		});
 	}
 }

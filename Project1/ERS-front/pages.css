@@ -86,6 +86,12 @@
     background-color: #2E0A36;
 
  }
+ #update-button{
+    padding: 6px 12px;
+    margin-left: 46%;
+    background-color: #2E0A36;
+
+ }
 
  @media all and (max-width:30em){
      .btnn{
@@ -108,4 +114,11 @@
 }
 .table td, .table th{
     border-top: none;
+    border-style: none;
+}
+
+
+
+.form-floating {
+    margin-bottom: 15px;
 }
