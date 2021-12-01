@@ -9,10 +9,10 @@ public class Reimb {
 	private String resolved;
 	private String description;
 	private String recipt;
-	private Users author;
+	private int author;
 	private Users resolver;
-	private Status status;
-	private Type type;
+	private int status;
+	private int type;
 	
 	
 	public Reimb() {
@@ -21,7 +21,7 @@ public class Reimb {
 
 
 	public Reimb(int id, double amount, String submitted, String resolved, String description, String recipt,
-			Users author, Users resolver, Status status, Type type) {
+			int author, Users resolver, int status, int type) {
 		super();
 		this.id = id;
 		this.amount = amount;
@@ -36,7 +36,7 @@ public class Reimb {
 	}
 
 
-	public Reimb(int id, double amount, String submitted, String description, Users author, Status status, Type type) {
+	public Reimb(int id, double amount, String submitted, String description, int author, int status, int type) {
 		super();
 		this.id = id;
 		this.amount = amount;
@@ -47,9 +47,6 @@ public class Reimb {
 		this.type = type;
 	}
 
-
-
-	
 
 
 	public Reimb(int id, double amount, String submitted, int status,  int type, String description, int author) {
@@ -63,9 +60,6 @@ public class Reimb {
 	}
 
 
-
-
-
 	public Reimb(int id, double amount, String submitted, int status, String description, int authorId,
 			int type) {
 		super();
@@ -76,8 +70,18 @@ public class Reimb {
 		}
 
 
-	public Reimb(int id, double amount, String submitted, String resolved, String description, int resolverId,
+	public Reimb(int author, double amount, String submitted, String resolved, String description, int resolverId,
 			int type) {
+		super();
+		
+		this.amount = amount;
+		this.submitted = submitted;
+		this.description = description;
+	}
+
+
+	public Reimb(int id, int authorId, double amount, String submitted, String resolved2, String description,
+			int resolverId, int statusId, int typeId) {
 		super();
 		this.id = id;
 		this.amount = amount;
@@ -146,12 +150,12 @@ public class Reimb {
 	}
 
 
-	public Users getAuthor() {
+	public int getAuthor() {
 		return author;
 	}
 
 
-	public void setAuthor(Users author) {
+	public void setAuthor(int author) {
 		this.author = author;
 	}
 
@@ -166,22 +170,22 @@ public class Reimb {
 	}
 
 
-	public Status getStatus() {
+	public int getStatus() {
 		return status;
 	}
 
 
-	public void setStatus(Status status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 
 
-	public Type getType() {
+	public int getType() {
 		return type;
 	}
 
 
-	public void setType(Type type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 

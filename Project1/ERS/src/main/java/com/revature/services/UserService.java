@@ -37,33 +37,32 @@ public class UserService {
 	
 	public Users getEmployeeById(int id) {
 		Users e = ud.getEmployeeById(id);
-		if (e != null) {
-			e.setPassword(null);
-		}
+//		if (e != null) {
+//			e.setPassword(null);
+//		}
 		
 		return e;
 	}
 	
+	
 	public boolean updateEmployee(Users e) {
 		Users eUpdate = ud.getEmployeeById(e.getId());
-		System.out.println(eUpdate);
-		if(e.getFirstName() !=null && !e.getFirstName().equals(eUpdate.getFirstName())) {
+		if(e.getFirstName() !=null && !e.getFirstName().trim().isEmpty()) {
 			eUpdate.setFirstName(e.getFirstName());
-			System.out.println(eUpdate +"test");
 		}
 		
-		if(e.getLastName() !=null && !e.getLastName().equals(eUpdate.getLastName())) {
+		if(e.getLastName() !=null && !e.getLastName().trim().isEmpty()) {
 			eUpdate.setLastName(e.getLastName());
 		}
 		
-		if(e.getUsername() !=null && !e.getUsername().equals(eUpdate.getUsername())) {
+		if(e.getUsername() !=null && !e.getUsername().trim().isEmpty()) {
 			eUpdate.setUsername(e.getUsername());
 		}
 		
-		if(e.getPassword() !=null && !e.getPassword().equals(eUpdate.getPassword())) {
+		if(e.getPassword() !=null && !e.getPassword().trim().isEmpty()) {
 			eUpdate.setPassword(e.getPassword());
 		}
-		if(e.getEmail() !=null && !e.getEmail().equals(eUpdate.getEmail())) {
+		if(e.getEmail() !=null && !e.getEmail().trim().isEmpty()) {
 			eUpdate.setEmail(e.getEmail());
 		}
 				
@@ -71,13 +70,6 @@ public class UserService {
 		
 	}
 	
-	public boolean updateEmployeeRole(Users e) {
-		Users u_update = ud.getEmployeeById(e.getId());
-		if(e.getRole() != null && !e.getRole().equals(u_update.getRole())) {
-			u_update.setRole(e.getRole());
-		}
-		return ud.updateEmployee(u_update);
-	}
 	
 	
 	
@@ -93,31 +85,5 @@ public class UserService {
 		}
 	
 	
-//	public boolean checkPermission( String token, Roles...allowedRoles) {
-//		
-//		if(token == null) {
-//			return false;
-//		}
-//		
-//		String[] info = token.split(":"); 
-//		
-//		int token_id = Integer.parseInt(info[0]);
-//		
-//		int token_role = Integer.parseInt(info[1]);
-//		
-//		Users principal = ud.getEmployeeById(token_id);
-//		Roles principal_role = principal.getRole();
-//		if(principal != null && token_role==principal_role.getId()
-//				&& Arrays.asList(allowedRoles).contains(principal_role)) {
-//			return true;
-//		}
-//		
-//		return false;
-		
-	//}
-	
-	
-	
-	
-	
+
 }

@@ -122,12 +122,12 @@ let response = await fetch('http://localhost:8080/manager/update', {
   
   
   
-  document.getElementById("logout").addEventListener('click', LogOut);
+  // document.getElementById("logout").addEventListener('click', LogOut);
 
-  function LogOut(){
-      sessionStorage.clear();
-      window.location.href = "login.html";
-  }
+  // function LogOut(){
+  //     sessionStorage.clear();
+  //     window.location.href = "login.html";
+  // }
 
  
  

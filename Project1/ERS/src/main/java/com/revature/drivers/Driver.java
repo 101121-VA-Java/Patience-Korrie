@@ -11,6 +11,7 @@ import com.revature.controllers.AuthController;
 import com.revature.controllers.EmployeeController;
 //import com.revature.controllers.EmployeeController;
 import com.revature.controllers.ManagerController;
+import com.revature.controllers.ReimbController;
 
 public class Driver {
 
@@ -47,24 +48,39 @@ public class Driver {
 					get(ManagerController::getEmployeeById);
 				});
 				
-		
-				post(ManagerController::registerEmployee);
 				
 			});
 			
 //			 /employee
 			path("employee", () -> {
-//				path("{id}", () -> {
-//					get(EmployeeController::getEmployeeById);
-				path("account", ()->{				
-						get(EmployeeController::updateEmployee); //An Employee can view their information
+			
+				path("{id}", () -> {
+					get(EmployeeController::getEmployeeById);
+					});
+				path("update", ()->{				
 						put(EmployeeController::updateEmployee);
 					});
-					
+				
+			});
+			// /reimb
+			path("reimb", () ->{
+				
+				path("request", ()->{				
+					post(ReimbController::makeReqt);
 				});
 				
+				path("getReimb", ()->{				
+					get(ReimbController:: getReimb);
+				});
 				
-			});				
+				path("{id}", ()->{				
+					put(ReimbController::update);
+				});
+				
+			});
+				
+				
+		});				
 				
 	}
 }

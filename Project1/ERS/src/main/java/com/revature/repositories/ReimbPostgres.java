@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,53 +22,50 @@ public class ReimbPostgres implements ReimbDao {
 
 	@Override
 	public List<Reimb> getAllReimb() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Reimb getAllReimbById(int id) {
-		String sql = "select re_id,re_amount,re_submitted,re_resolved,re_description,re_resolverId,re_typeId from reimb r where r.re_authorId = ?;";
-		Reimb allReimb = null;
+		List<Reimb> reimb = new ArrayList<>();
 		
-		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
-			PreparedStatement ps = con.prepareStatement(sql);
-
-			ps.setInt(1, id); 
-
-			ResultSet rs = ps.executeQuery();
+		try (Connection c = ConnectionUtil.getConnectionFromFile()) {
+			String sql = "select * from reimb;";
 			
-		if (rs.next()) {
-			int id1 = rs.getInt("re_id");
-			double amount = rs.getDouble("re_amount");
-			String submitted = rs.getString("re_submitted");
-			String resolved = rs.getString("re_resolved");
-			String description = rs.getString("re_description");
-			int resolverId = rs.getInt("re_resolverId");
-			int typeId = rs.getInt("re_typeId");
+			Statement ps = c.createStatement();
+			ResultSet rs = ps.executeQuery(sql);
 			
-			 allReimb = new Reimb(id1,amount,submitted,resolved,description,resolverId,typeId);
-			
+			while (rs.next()) {
+				
+				int id = rs.getInt("re_id");
+				int authorId = rs.getInt("re_authorId");
+				double amount = rs.getDouble("re_amount");
+				String submitted = rs.getString("re_submitted");
+				String resolved = rs.getString("re_resolved");
+				String description = rs.getString("re_description");
+				int resolverId = rs.getInt("re_resolverId");
+				int statusId = rs.getInt("re_statusId");
+				int typeId = rs.getInt("re_typeId");
+				
+				Reimb r = new Reimb(id,authorId,amount,submitted,resolved,description,resolverId,statusId,typeId);
+				reimb.add(r);
 			}
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
-			}
-		
-		return allReimb;
+		}
+		return reimb;
 	}
 
+	
 	@Override
 	public Reimb addReimb(Reimb reimb) {
 		Reimb resultId = null;
-		String sql = "insert into reimb(re_amount,re_authorId,re_type,re_description)" + "values (?,?,?,?) returning re_id;";
+		String sql = "insert into reimb(re_amount,re_typeId,re_description,re_submitted,re_statusId,re_authorId)" + "values (?,?,?,?,?,?) returning re_id;";
 		
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql);
 			
 			ps.setDouble(1, reimb.getAmount());
-			ps.setInt(2, reimb.getAuthor().getId());
-			ps.setInt(3, reimb.getType().getId());
-			ps.setString(4, reimb.getDescription());
+			ps.setInt(2, reimb.getType());
+			ps.setString(3, reimb.getDescription());
+			ps.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+			ps.setInt(5, reimb.getStatus());
+			ps.setInt(6, reimb.getAuthor());
 			
 			ResultSet rs = ps.executeQuery();
 			
@@ -101,8 +99,6 @@ public class ReimbPostgres implements ReimbDao {
 				int typeId = rs.getInt("re_typeId");
 				String description = rs.getString("re_description");
 				int authorId = rs.getInt("re_authorId");
-				
-				
 				
 				Reimb pendingRqt = new Reimb(id, amount, submitted,statusId,typeId,description,authorId);
 				pending.add(pendingRqt);
@@ -150,15 +146,16 @@ public class ReimbPostgres implements ReimbDao {
 
 	@Override
 	public boolean updateReimb(Reimb r) {
-		String sql = "update reimb set re_status = ?, re_resolverId = ?, re_resolved = ?;";
+		String sql = "update reimb set re_status = ?, re_resolverId = ?, re_resolved = ?  Where u_id = ?;";
 		int rowsChanged = -1;
 		
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql);
 			
-			ps.setInt(1, r.getStatus().getId());
+			ps.setInt(1, r.getStatus());
 			ps.setInt(2, r.getResolver().getId());
-			ps.setString(3, r.getResolved());
+			ps.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+			ps.setInt(5, r.getId());
 			
 			rowsChanged = ps.executeUpdate();
 			
@@ -171,6 +168,73 @@ public class ReimbPostgres implements ReimbDao {
 			return false;
 			}
 		}
+
+	@Override
+	public Reimb getReimbById(int id) {
+		String sql = "select re_amount,re_submitted,re_resolved,re_description,re_resolverId,re_typeId from reimb r where r.re_Id = ?;";
+		Reimb allReimb1 = null;
+		
+		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
+			PreparedStatement ps = con.prepareStatement(sql);
+
+			ps.setInt(1, id); 
+
+			ResultSet rs = ps.executeQuery();
+			
+		if (rs.next()) {
+			int authorId = rs.getInt("re_authorId");
+			double amount = rs.getDouble("re_amount");
+			String submitted = rs.getString("re_submitted");
+			String resolved = rs.getString("re_resolved");
+			String description = rs.getString("re_description");
+			int resolverId = rs.getInt("re_resolverId");
+			int typeId = rs.getInt("re_typeId");
+			
+			 allReimb1 = new Reimb(authorId,amount,submitted,resolved,description,resolverId,typeId);
+			
+			}
+		} catch (SQLException | IOException e) {
+			e.printStackTrace();
+			}
+		
+		return allReimb1;
+	}
+
+
+	@Override
+	public List<Reimb> getReimbsById(int id) {
+		String sql = "select re_id,re_amount,re_submitted,re_resolved,re_description,re_resolverId,re_typeId from reimb r where r.re_authorId = ?;";
+		List<Reimb> allReimbs = new ArrayList<>();
+		
+		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
+			PreparedStatement ps = con.prepareStatement(sql);
+
+			ps.setInt(1, id); 
+
+			ResultSet rs = ps.executeQuery();
+			
+		if (rs.next()) {
+			int id1 = rs.getInt("re_id");
+			double amount = rs.getDouble("re_amount");
+			String submitted = rs.getString("re_submitted");
+			String resolved = rs.getString("re_resolved");
+			String description = rs.getString("re_description");
+			int resolverId = rs.getInt("re_resolverId");
+			int typeId = rs.getInt("re_typeId");
+			
+			 Reimb allReimb = new Reimb(id1,amount,submitted,resolved,description,resolverId,typeId);
+			 
+			 allReimbs.add(allReimb);
+			
+			}
+		} catch (SQLException | IOException e) {
+			e.printStackTrace();
+			}
+		
+		return allReimbs;
+	}
+
+
 	
 	
 

@@ -19,6 +19,10 @@ function login(){
             sessionStorage.setItem("token", authToken);
 
             let tok = sessionStorage.getItem("token");
+
+            // if(tok == null){
+            //     window.location.href = "login.html";
+            // }
     
             if(tok.split(":")[1] === "2"){
 
@@ -40,16 +44,8 @@ function login(){
         let requestBody = `username=${username}&password=${password}`;
 
         xhr.send(requestBody);
+       
 }
 
 
-if(tok == null){
-    window.location.href = "login.html";
-}
 
-document.getElementById("logout").addEventListener('click', LogOut);
-
-function LogOut(){
-    sessionStorage.clear();
-    window.location.href = "login.html";
-}

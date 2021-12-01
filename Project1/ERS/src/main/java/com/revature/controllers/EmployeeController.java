@@ -12,9 +12,9 @@ public class EmployeeController {
 	
 	
 	public static void getEmployeeById(Context ctx) {
-		
-		// pathParam("nameOfPathParam");
-		int id = Integer.parseInt(ctx.pathParam("id"));
+		String token = ctx.header("Authorization");
+
+		int id = Integer.parseInt(token.split(":")[0]);
 		Users u = us.getEmployeeById(id);
 		
 		if (u != null) {
@@ -29,9 +29,10 @@ public class EmployeeController {
 	
 	
 	public static void updateEmployee(Context ctx) {
-		//String token = ctx.header("Authorization");
+		String token = ctx.header("Authorization");
 		
-		int id = Integer.parseInt(ctx.pathParam("id"));
+		int id = Integer.parseInt(token.split(":")[0]);	
+		
 		Users u = ctx.bodyAsClass(Users.class);
 		u.setId(id);
 		
@@ -41,6 +42,8 @@ public class EmployeeController {
 			ctx.status(400);
 		}
 	}
+	
+	
 	
 	
 }

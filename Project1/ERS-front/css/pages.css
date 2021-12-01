@@ -79,12 +79,11 @@
   .form-control{
     border: 2px solid #F3CA5E;
   }
- #send{
+ #send, #send1{
     padding: 6px 12px;
     margin-left: 46%;
     margin-top: 2%;
     background-color: #2E0A36;
-
  }
  #update-button{
     padding: 6px 12px;
@@ -121,4 +120,12 @@
 
 .form-floating {
     margin-bottom: 15px;
+}
+
+#card1{
+    padding: 3.25rem;
+}
+
+#inputGroupSelect01{
+    border: 2px solid #F3CA5E;
 }

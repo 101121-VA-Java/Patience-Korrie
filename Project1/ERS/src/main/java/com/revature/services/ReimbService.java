@@ -14,14 +14,21 @@ public class ReimbService {
 		return rd.getAllReimb();
 		
 	}
+	public List<Reimb> getReimbsById(int id){
+		return rd.getReimbsById(id);
+		
+	}
 	
 	public Reimb addReimb(Reimb reimb) {
 		return rd.addReimb(reimb);
 	}
 	
-	public int getReimbById(int id) {
-		return id;
+	public Reimb getReimbById(int id) {
+		return rd.getReimbById(id);
 		
+	}
+	public boolean update(Reimb r) {
+		return rd.updateReimb(r);
 	}
 	
 }

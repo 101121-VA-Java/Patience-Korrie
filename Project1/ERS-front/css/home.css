@@ -1,6 +1,6 @@
 /* GLOBAL STYLES */
 body {
-    background-image: url("img/color2.jpg");
+    background-image: url("../img/color2.jpg");
     background-color: #333;
     padding-top: 5em;
     display: flex;

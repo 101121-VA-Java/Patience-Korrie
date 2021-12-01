@@ -89,27 +89,6 @@ public class ManagerController {
 		
 	}
 	
-	public static void updateEmployeeInfoManag(Context ctx) {
-
-		String token = ctx.header("Authorization");
-		
-		if (token.split(":")[1] !="1" ) {
-			ctx.status(HttpCode.UNAUTHORIZED);
-			return;
-		}
-		
-		int id = Integer.parseInt(ctx.pathParam("id"));
-		
-		Users u = ctx.bodyAsClass(Users.class);
-		u.setId(id);
-		
-		if(us.updateEmployeeRole(u)) {
-			ctx.status(HttpCode.OK);
-		} else {
-			ctx.status(400);
-		}
-		
-	}
 
 	
 	
