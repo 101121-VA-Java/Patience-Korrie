@@ -86,10 +86,10 @@
                     <a class="col-4 btn btnn" id="optt1" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="collapseWidthExample1">
                       MAKE A REQUEST
                     </a>
-                    <a class="col-4 btn btnn" id="optt1" type="button" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapseWidthExample2">
+                    <a class="col-4 btn btnn" id="optt2" type="button" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapseWidthExample2">
                         PENDING REQUESTS
                       </a>
-                      <a class="col-4 btn btnn" id="optt1" type="button" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapseWidthExample3">
+                      <a class="col-4 btn btnn" id="optt3" type="button" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapseWidthExample3">
                         RESOLVED REQUESTS
                       </a>
                     </div>
@@ -125,17 +125,42 @@
                         <div id="error"> </div>
                         <div id="suss"> </div>
                       </div>
-                    
-                    <div class="collapse" id="collapse2">
-                        <div class="card card-body" >
-                          This is some placeholder content for a horizontal collapse. It's hidden by default and shown when triggered.
-                        </div>
-                      </div>
+                  </div>
+
+                  <div class="collapse" id="collapse2">
+                    <div class="card card-body" >
+                      <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">Type</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Submited</th>
+                            
+                          </tr>
+                        </thead>
+                        <tbody id="pendingData">
+                          
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
 
                   <div class="collapse" id="collapse3">
                     <div class="card card-body" >
-                      This is some placeholder content for a horizontal collapse. It's hidden by default and shown when triggered.
+                      <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">Type</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Submited</th>
+                          </tr>
+                        </thead>
+                        <tbody id="resolvedData">
+                          
+                        </tbody>
+                      </table>
                     </div>
                   </div>
               </div>

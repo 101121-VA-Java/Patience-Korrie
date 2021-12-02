@@ -11,8 +11,8 @@ let token = sessionStorage.getItem("token");
     window.location.href = "login.html";
   }else{
     document.getElementById('send1').addEventListener('click', createRqt);
-    // document.getElementById('optt2').addEventListener('click', pendinRqt);
-    // document.getElementById('optt3').addEventListener('click', resolvedRqt);
+    document.getElementById('optt2').addEventListener('click', pendinRqt);
+    document.getElementById('optt3').addEventListener('click', resolvedRqt);
     populateT();
   }
 
@@ -51,7 +51,6 @@ async function updateEmployee(){
   let password = document.getElementById('floatingInput3').value;
   let email = document.getElementById('floatingInput2').value;
 
-
   let updatedEmployee = {
     firstName : FirstName,
     lastName : LastName,
@@ -59,8 +58,6 @@ async function updateEmployee(){
     username : UserName,
     password : password
   }
-
-
 
 let response = await fetch('http://localhost:8080/employee/update', {
         method: 'PUT',
@@ -80,9 +77,9 @@ let response = await fetch('http://localhost:8080/employee/update', {
   async function createRqt(){
     let amount = document.getElementById("reimb-amount").value;
     let description = document.getElementById("exampleFormControlTextarea2").value;
-    let type = document.getElementById("inputGroupSelect01").value;
-    let author = sessionStorage.token.split(":")[0];
-    let newReimb = {author, amount, description, type};
+    let typeId = document.getElementById("inputGroupSelect01").value;
+    let authorId = sessionStorage.token.split(":")[0];
+    let newReimb = {authorId, amount, description, typeId};
 
     let response = await fetch('http://localhost:8080/reimb/request', {
       method: 'POST',
@@ -96,9 +93,112 @@ let response = await fetch('http://localhost:8080/employee/update', {
     document.getElementById('suss').innerHTML='Reimbursement was successfully added!';
 } else {
     document.getElementById('error').innerHTML='could not make request'
+  }
 }
 
-  
+async function pendinRqt(){
+  let response = await fetch('http://localhost:8080/reimb/getReimb', {
+      method: 'GET',
+      headers: {
+          'Authorization': token
+      }
+  });
+
+  if(response.status == 201){
+    console.log("got response");
+  } else {
+    document.getElementById('error').innerHTML='could not make request'
   }
-    
+
+  let reimb = await response.json();
+
+  let tableBody = document.getElementById('pendingData');
+
+  console.log(reimb)
+  for(i of reimb){
+    if (i.statusId == 1){
+      let row = document.createElement('tr');
+
+      let typeTd = document.createElement('td');
+      typeTd.innerHTML = i.typeName;
+
+      let amountTd = document.createElement('td');
+      amountTd.innerHTML = i.amount;
+
+      let descriptionTd = document.createElement('td');
+      descriptionTd.innerHTML = i.description;
+
+      let submitedTd = document.createElement('td');
+      submitedTd.innerHTML = i.submitted;
+
+      row.appendChild(typeTd);
+      row.appendChild(amountTd);
+      row.appendChild(descriptionTd);
+      row.appendChild(submitedTd);
+      tableBody.appendChild(row);
+    }
+  }
+}
+
+async function resolvedRqt(){
+  let response = await fetch('http://localhost:8080/reimb/getReimb', {
+    method: 'GET',
+    headers: {
+        'Authorization': token
+    }
+});
+
+if(response.status == 201){
+  console.log("got response");
+} else {
+  document.getElementById('error').innerHTML='could not make request'
+}
   
+  let reimb = await response.json();
+
+  let tableBody = document.getElementById('resolvedData');
+  tableBody.innerHTML = '';
+
+  for(i of reimb){
+    if (i.statusId > 1){
+      let row = document.createElement('tr');
+
+      let typeTd1 = document.createElement('td');
+      typeTd1.innerHTML = i.typeName;
+
+      let amountTd1 = document.createElement('td');
+      amountTd1.innerHTML = i.amount;
+
+      let descriptionTd1 = document.createElement('td');
+      descriptionTd1.innerHTML = i.description;
+
+      let submitedTd1 = document.createElement('td');
+      submitedTd1.innerHTML = i.submitted;
+
+      let resolverTd1 = document.createElement('td');
+      resolverTd1.innerHTML = i.resolverId;
+
+      let resolvedTd1 = document.createElement('td');
+      resolvedTd1.innerHTML = i.resolved;
+
+      row.appendChild(typeTd1);
+      row.appendChild(amountTd1);
+      row.appendChild(descriptionTd1);
+      row.appendChild(submitedTd1);
+      row.appendChild(resolverTd1);
+      row.appendChild(resolvedTd1);
+      tableBody.appendChild(row);
+    }
+  }
+}
+
+
+
+
+    
+document.getElementById("logout").addEventListener('click', LogOut);
+
+function LogOut(){
+    sessionStorage.clear();
+    window.location.href = "login.html";
+}

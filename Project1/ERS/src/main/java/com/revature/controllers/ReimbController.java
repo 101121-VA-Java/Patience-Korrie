@@ -16,7 +16,7 @@ public class ReimbController {
 	public static void makeReqt(Context ctx) {
 
 		Reimb r = ctx.bodyAsClass(Reimb.class);
-		r.setStatus(1);
+		r.setStatusId(1);
 
 		r = rs.addReimb(r);
 			
@@ -27,23 +27,27 @@ public class ReimbController {
 			}
 		}
 	
+	
+	
 	public static void getReimb(Context ctx) {
 		String token = ctx.header("Authorization");
 		
-		if(token.split(":")[1] =="2") {
+		if(token.split(":")[1].equals("2")) {
 			List <Reimb> rmbs = null;
 			
 			if(ctx.queryParam("author") == null) rmbs = rs.getAllReimb();
 			else {
-				int authorId =  Integer.parseInt(ctx.queryParam("author"));
+				int authorId =  Integer.parseInt(ctx.pathParam("author"));
 				rmbs = rs.getReimbsById(authorId);
 			}
 			
 			if(rmbs == null)ctx.status(HttpCode.BAD_REQUEST);
 			else ctx.json(rmbs); ctx.status(HttpCode.CREATED);
 			
-		}else if(token.split(":")[1] =="1") {
+			
+		}else if(token.split(":")[1].equals("1")) {
 			String[] info = token.split(":");
+			
 			int empId = Integer.parseInt(info[0]);
 			List <Reimb> rmbs = rs.getReimbsById(empId);
 			
@@ -62,18 +66,24 @@ public class ReimbController {
 			ctx.status(HttpCode.UNAUTHORIZED);
 			return;
 		}
-//		
-//		int id = Integer.parseInt(ctx.pathParam("id"));
-//		String str = ctx.body();
-//		int statusId = Integer.parseInt(str);
-//		Status st = 
-		//Reimb r = rs.getReimbById(id);
-//		r.setStatus(statusId);
-	//	String[] info = token.split(":"); 
-	//	int managerId = Integer.parseInt(info[0]);
-	//	r.setResolver(managerId);
+		
+		int id = Integer.parseInt(ctx.pathParam("id"));
+		String str = ctx.body();
+		int statusId = Integer.parseInt(str);
+	
+		Reimb r = rs.getReimbById(id);
+		r.setStatusId(statusId);
+		String[] info = token.split(":"); 
+		int managerId = Integer.parseInt(info[0]);
+		r.setResolverId(managerId);
+		Boolean result = rs.update(r);
+		
+		if (!result) {
+			ctx.status(HttpCode.BAD_REQUEST);
+		} else {
+			System.out.println("yayy");
+			ctx.status(HttpCode.CREATED);
+		}
 	}
-
-
 
 }

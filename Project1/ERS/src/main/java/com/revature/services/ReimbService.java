@@ -25,8 +25,14 @@ public class ReimbService {
 	
 	public Reimb getReimbById(int id) {
 		return rd.getReimbById(id);
-		
 	}
+	
+	
+//	public Reimb getPendings(int id) {
+//		return rd.getAllPendingReimb(id);
+//	}
+	
+	
 	public boolean update(Reimb r) {
 		return rd.updateReimb(r);
 	}

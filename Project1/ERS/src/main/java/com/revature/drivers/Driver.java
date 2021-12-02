@@ -77,6 +77,10 @@ public class Driver {
 					put(ReimbController::update);
 				});
 				
+				path("{author}", () -> {
+					get(ReimbController:: getReimb);
+				});
+				
 			});
 				
 				

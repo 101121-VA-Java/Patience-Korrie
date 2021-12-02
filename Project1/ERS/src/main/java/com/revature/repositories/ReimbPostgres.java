@@ -35,14 +35,17 @@ public class ReimbPostgres implements ReimbDao {
 				int id = rs.getInt("re_id");
 				int authorId = rs.getInt("re_authorId");
 				double amount = rs.getDouble("re_amount");
+				int typeId = rs.getInt("re_typeId");
+				String description = rs.getString("re_description");
 				String submitted = rs.getString("re_submitted");
 				String resolved = rs.getString("re_resolved");
-				String description = rs.getString("re_description");
 				int resolverId = rs.getInt("re_resolverId");
 				int statusId = rs.getInt("re_statusId");
-				int typeId = rs.getInt("re_typeId");
 				
-				Reimb r = new Reimb(id,authorId,amount,submitted,resolved,description,resolverId,statusId,typeId);
+				
+				
+				Reimb r = new Reimb(id,authorId,amount,typeId,description,submitted,resolved,resolverId,statusId);
+				 r.setTypeName(typeId);
 				reimb.add(r);
 			}
 		} catch (SQLException | IOException e) {
@@ -61,11 +64,11 @@ public class ReimbPostgres implements ReimbDao {
 			PreparedStatement ps = con.prepareStatement(sql);
 			
 			ps.setDouble(1, reimb.getAmount());
-			ps.setInt(2, reimb.getType());
+			ps.setInt(2, reimb.getTypeId());
 			ps.setString(3, reimb.getDescription());
 			ps.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
-			ps.setInt(5, reimb.getStatus());
-			ps.setInt(6, reimb.getAuthor());
+			ps.setInt(5, reimb.getStatusId());
+			ps.setInt(6, reimb.getAuthorId());
 			
 			ResultSet rs = ps.executeQuery();
 			
@@ -100,7 +103,7 @@ public class ReimbPostgres implements ReimbDao {
 				String description = rs.getString("re_description");
 				int authorId = rs.getInt("re_authorId");
 				
-				Reimb pendingRqt = new Reimb(id, amount, submitted,statusId,typeId,description,authorId);
+				Reimb pendingRqt = new Reimb(id,authorId,amount,typeId,description,submitted,statusId);
 				pending.add(pendingRqt);
 			}
 			
@@ -132,7 +135,7 @@ public class ReimbPostgres implements ReimbDao {
 				int authorId = rs.getInt("re_resolverId");
 				int typeId = rs.getInt("re_typeId");
 				
-				Reimb reList = new Reimb(id,amount,submitted,statusId,description,authorId,typeId);
+				Reimb reList = new Reimb(id,authorId,amount,typeId,description,submitted,statusId);
 				resolvedList.add(reList);
 				
 				}
@@ -146,32 +149,35 @@ public class ReimbPostgres implements ReimbDao {
 
 	@Override
 	public boolean updateReimb(Reimb r) {
-		String sql = "update reimb set re_status = ?, re_resolverId = ?, re_resolved = ?  Where u_id = ?;";
+		String sql = "update reimb set re_statusId = ?, re_resolverId = ?, re_resolved = ?, re_authorId = ?  Where re_id = ?;";
 		int rowsChanged = -1;
 		
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql);
 			
-			ps.setInt(1, r.getStatus());
-			ps.setInt(2, r.getResolver().getId());
+			ps.setInt(1, r.getStatusId());
+			ps.setInt(2, r.getResolverId());
 			ps.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+			ps.setInt(4, r.getAuthorId());
 			ps.setInt(5, r.getId());
 			
 			rowsChanged = ps.executeUpdate();
 			
+			if (rowsChanged > 0) {
+				return true;
+			} else {
+				return false;
+				}
+			
 		}catch (SQLException | IOException e) {
 				e.printStackTrace();
 			}
-		if (rowsChanged > 0) {
-			return true;
-		} else {
-			return false;
-			}
+		return false;
 		}
 
 	@Override
 	public Reimb getReimbById(int id) {
-		String sql = "select re_amount,re_submitted,re_resolved,re_description,re_resolverId,re_typeId from reimb r where r.re_Id = ?;";
+		String sql = "select * from reimb where re_id = ?;";
 		Reimb allReimb1 = null;
 		
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
@@ -182,6 +188,7 @@ public class ReimbPostgres implements ReimbDao {
 			ResultSet rs = ps.executeQuery();
 			
 		if (rs.next()) {
+			int id1 = rs.getInt("re_id");
 			int authorId = rs.getInt("re_authorId");
 			double amount = rs.getDouble("re_amount");
 			String submitted = rs.getString("re_submitted");
@@ -189,9 +196,10 @@ public class ReimbPostgres implements ReimbDao {
 			String description = rs.getString("re_description");
 			int resolverId = rs.getInt("re_resolverId");
 			int typeId = rs.getInt("re_typeId");
+			int statusId = rs.getInt("re_statusId");
 			
-			 allReimb1 = new Reimb(authorId,amount,submitted,resolved,description,resolverId,typeId);
-			
+			 allReimb1 = new Reimb(id1,authorId,amount,typeId,description,submitted,resolved,resolverId,statusId);
+			System.out.println(allReimb1);
 			}
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
@@ -203,7 +211,7 @@ public class ReimbPostgres implements ReimbDao {
 
 	@Override
 	public List<Reimb> getReimbsById(int id) {
-		String sql = "select re_id,re_amount,re_submitted,re_resolved,re_description,re_resolverId,re_typeId from reimb r where r.re_authorId = ?;";
+		String sql = "select re_id,re_amount,re_submitted,re_statusId,re_description,re_resolved,re_resolverId,re_typeId from reimb r where r.re_authorId = ?;";
 		List<Reimb> allReimbs = new ArrayList<>();
 		
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
@@ -213,19 +221,20 @@ public class ReimbPostgres implements ReimbDao {
 
 			ResultSet rs = ps.executeQuery();
 			
-		if (rs.next()) {
+		while (rs.next()) {
 			int id1 = rs.getInt("re_id");
-			double amount = rs.getDouble("re_amount");
-			String submitted = rs.getString("re_submitted");
-			String resolved = rs.getString("re_resolved");
-			String description = rs.getString("re_description");
-			int resolverId = rs.getInt("re_resolverId");
 			int typeId = rs.getInt("re_typeId");
+			double amount = rs.getDouble("re_amount");
+			String description = rs.getString("re_description");
+			String submitted = rs.getString("re_submitted");
+			int statusId = rs.getInt("re_statusId");
+			String resolved = rs.getString("re_resolved");
+			int resolverId = rs.getInt("re_resolverId");
 			
-			 Reimb allReimb = new Reimb(id1,amount,submitted,resolved,description,resolverId,typeId);
-			 
+			 Reimb allReimb = new Reimb(id1,typeId,amount,description,submitted,statusId,resolved,resolverId);
+			 allReimb.setTypeName(typeId);
+			
 			 allReimbs.add(allReimb);
-			
 			}
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
@@ -234,8 +243,5 @@ public class ReimbPostgres implements ReimbDao {
 		return allReimbs;
 	}
 
-
-	
-	
 
 }
