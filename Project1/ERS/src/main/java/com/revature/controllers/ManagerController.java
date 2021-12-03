@@ -71,11 +71,7 @@ public class ManagerController {
 	public static void updateEmployeeInfo(Context ctx) {
 
 		String token = ctx.header("Authorization");
-		
-//		if (token.split(":")[1] !="1" || token.split(":")[1] !="2" ) {
-//			ctx.status(HttpCode.UNAUTHORIZED);
-//		}
-//		
+			
 		int id = Integer.parseInt(token.split(":")[0]);
 		
 		Users u = ctx.bodyAsClass(Users.class);

@@ -49,6 +49,7 @@ public class ReimbPostgres implements ReimbDao {
 				reimb.add(r);
 			}
 		} catch (SQLException | IOException e) {
+			log.error("Error while trying to get item.");
 			e.printStackTrace();
 		}
 		return reimb;
@@ -85,6 +86,7 @@ public class ReimbPostgres implements ReimbDao {
 				reimb.add(r);
 			}
 		} catch (SQLException | IOException e) {
+			log.error("Error while trying to get item.");
 			e.printStackTrace();
 		}
 		return reimb;

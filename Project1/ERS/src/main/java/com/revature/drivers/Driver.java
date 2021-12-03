@@ -3,20 +3,22 @@ package com.revature.drivers;
 import io.javalin.Javalin;
 import static io.javalin.apibuilder.ApiBuilder.*;
 import static io.javalin.apibuilder.ApiBuilder.post;
-//import static io.javalin.apibuilder.ApiBuilder.put;
 
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.revature.controllers.AuthController;
 import com.revature.controllers.EmployeeController;
-//import com.revature.controllers.EmployeeController;
 import com.revature.controllers.ManagerController;
 import com.revature.controllers.ReimbController;
 
+
 public class Driver {
 
+	private static Logger log = LogManager.getRootLogger();
 	
-	public static void main(String[] args) {		
+	public static void main(String[] args) {
+		log.info("The Main Method has been called.");
 		Javalin app = Javalin.create( (config) -> {
 			config.enableCorsForAllOrigins();
 		
@@ -99,11 +101,7 @@ public class Driver {
 					put(ReimbController::update);
 				});
 				
-				
-				
-				
 			});
-				
 				
 		});				
 				

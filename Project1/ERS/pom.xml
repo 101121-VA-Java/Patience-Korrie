@@ -57,6 +57,18 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.12.4</version>
 		</dependency>
+		
+		<dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-email</artifactId> <!-- For sending emails -->
+        <version>1.4</version>
+    </dependency>
+    <dependency>
+        <groupId>com.j2html</groupId>
+        <artifactId>j2html</artifactId> <!-- For creating HTML form -->
+        <version>1.0.0</version>
+    </dependency>
+		
 	</dependencies>
   
   
