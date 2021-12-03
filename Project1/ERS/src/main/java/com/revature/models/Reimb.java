@@ -15,6 +15,7 @@ public class Reimb {
 	private int typeId;
 	protected String typeName;
 	public String resolverName;
+	public String statusName;
 	
 	
 	public Reimb() {
@@ -97,6 +98,9 @@ public class Reimb {
 	}
 	public String getTypeName() {
 		return typeName;
+	}
+	public String getStatusName() {
+		return statusName;
 	}
 
 

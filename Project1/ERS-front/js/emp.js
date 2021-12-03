@@ -182,6 +182,8 @@ if(response.status == 201){
 
       let resolvedTd1 = document.createElement('td');
       resolvedTd1.innerHTML = i.resolved;
+      let statusTd1 = document.createElement('td');
+      statusTd1.innerHTML = i.statusName;
 
       row.appendChild(typeTd1);
       row.appendChild(amountTd1);
@@ -189,6 +191,7 @@ if(response.status == 201){
       row.appendChild(submitedTd1);
       row.appendChild(resolvedTd1);
       row.appendChild(resolver);
+      row.appendChild(statusTd1);
       tableBody.appendChild(row);
     }
   }

@@ -256,12 +256,16 @@ async function resolvedReqt(){
               let resolved = document.createElement('td');
               resolved.innerHTML = i.resolved;
 
+              let statusTd1 = document.createElement('td');
+              statusTd1.innerHTML = i.statusName;
+
               row.appendChild(typeTd);
               row.appendChild(amountTd);
               row.appendChild(descriptionTd);
               row.appendChild(submitedTd);
               row.appendChild(resolver);
               row.appendChild(resolved);
+              row.appendChild(statusTd1);
               tableBody.appendChild(row);
           }
       }
@@ -289,7 +293,7 @@ async function approveReimb(id, action) {
 
 }
 
-
+document.getElementById('send').addEventListener('click', sendEmail);
 
 
 document.getElementById("logout").addEventListener('click', LogOut);

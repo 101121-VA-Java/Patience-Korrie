@@ -60,6 +60,7 @@ public class ReimbPostgres implements ReimbDao {
 		List<Reimb> reimb = new ArrayList<>();
 		try (Connection c = ConnectionUtil.getConnectionFromFile()) {
 			String sql =  "select * from reimb r "
+					+ "join status s on r.re_statusid = s.s_id "
 					+ "join users u on r.re_resolverId = u.u_id;";
 			
 			Statement ps = c.createStatement();
@@ -77,12 +78,14 @@ public class ReimbPostgres implements ReimbDao {
 				int resolverId = rs.getInt("re_resolverId");
 				int statusId = rs.getInt("re_statusId");
 				String resolverName = rs.getString("u_username");
+				String statusName = rs.getString("s_status");
 				
 				
 				
 				Reimb r = new Reimb(id,authorId,amount,typeId,description,submitted,resolved,resolverId,statusId);
 				 r.setTypeName(typeId);
 				 r.resolverName = resolverName;
+				 r.statusName = statusName;
 				reimb.add(r);
 			}
 		} catch (SQLException | IOException e) {
@@ -267,6 +270,7 @@ public class ReimbPostgres implements ReimbDao {
 	public List<Reimb> getAllResolvedReimb(int id) {
 		String sql = "select * from reimb r "
 				+ "join users u on r.re_resolverId = u.u_id "
+				+"join status s on r.re_statusid = s.s_id "
 				+ "where r.re_authorId = ?;";
 		List<Reimb> pending =new ArrayList<>();
 		
@@ -287,11 +291,13 @@ public class ReimbPostgres implements ReimbDao {
 				String description = rs.getString("re_description");
 				int authorId = rs.getInt("re_authorId");
 				String resolverName = rs.getString("u_username");
+				String statusName = rs.getString("s_status");
 				
 				Reimb pendingRqt = new Reimb(id1,authorId,amount,typeId,description,submitted,statusId);
 				pendingRqt.setTypeName(typeId);
 				pendingRqt.setResolved(resolved);
 				pendingRqt.resolverName = resolverName;
+				pendingRqt.statusName = statusName;
 				pending.add(pendingRqt);
 			}
 			
