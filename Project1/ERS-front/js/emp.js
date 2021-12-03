@@ -89,10 +89,10 @@ let response = await fetch('http://localhost:8080/employee/update', {
       body: JSON.stringify(newReimb)
   });
 
-  if(response.status == 201){
+  if(response.status === 201){
     document.getElementById('suss').innerHTML='Reimbursement was successfully added!';
 } else {
-    document.getElementById('error').innerHTML='could not make request'
+    document.getElementById('error').innerHTML=''
   }
 }
 

@@ -51,6 +51,13 @@ public class Driver {
 				
 			});
 			
+			path("reimbs", () -> {
+				path("{id}", () -> {
+					get(ReimbController:: getAllReimbById);
+				});
+				
+			});
+			
 //			 /employee
 			path("employee", () -> {
 			
@@ -64,6 +71,9 @@ public class Driver {
 			});
 			// /reimb
 			path("reimb", () ->{
+//				path("{author}", () -> {
+//					get(ReimbController:: getAllReimb);
+//				});
 				
 				path("request", ()->{				
 					post(ReimbController::makeReqt);
@@ -83,10 +93,6 @@ public class Driver {
 				
 				path("resolvedRqt", () -> {
 					get(ReimbController:: getAllResolvedReqt);
-				});
-				
-				path("{author}", () -> {
-					get(ReimbController:: getAllReimb);
 				});
 				
 				path("{id}", ()->{				

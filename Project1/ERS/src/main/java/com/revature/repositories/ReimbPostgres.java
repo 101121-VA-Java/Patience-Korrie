@@ -187,10 +187,9 @@ public class ReimbPostgres implements ReimbDao {
 
 	@Override
 	public List<Reimb> getReimbsById(int id) {
-		System.out.println("test");
-		String sql = "select re_id,re_typeId,re_amount,re_description,re_submitted,re_statusId,re_resolved,re_resolverId,u_username from reimb r "
-				+ "join users u on r.re_authorId = u.u_id "
-				+ "where r.re_authorId = ?;";
+		String sql = "select * from reimb r "
+				+"left join  users u on r.re_resolverId = u.u_id "
+				+"where r.re_authorId = ?;";
 		List<Reimb> allReimbs = new ArrayList<>();
 		
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
@@ -215,8 +214,6 @@ public class ReimbPostgres implements ReimbDao {
 			 allReimb.setTypeName(typeId);
 			 allReimb.setResolved(resolved);
 			 allReimb.resolverName = resolverName;
-			 
-			 System.out.println(allReimb);
 			
 			 allReimbs.add(allReimb);
 			}
@@ -251,6 +248,7 @@ public class ReimbPostgres implements ReimbDao {
 				int authorId = rs.getInt("re_authorId");
 				
 				Reimb pendingRqt = new Reimb(id1,authorId,amount,typeId,description,submitted,statusId);
+				pendingRqt.setTypeName(typeId);
 				pending.add(pendingRqt);
 			}
 			

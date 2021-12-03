@@ -20,9 +20,7 @@ function login(){
 
             let tok = sessionStorage.getItem("token");
 
-            // if(tok == null){
-            //     window.location.href = "login.html";
-            // }
+         
     
             if(tok.split(":")[1] === "2"){
 
@@ -33,7 +31,6 @@ function login(){
             
 
         } else if (xhr.readyState === 4){
-            // provide user with feedback of failure to login
             document.getElementById("error").innerHTML = "Unable to login.";
            }
 

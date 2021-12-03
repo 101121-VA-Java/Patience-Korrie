@@ -112,7 +112,7 @@ async function updateEmployee() {
 }
 
 async function view(author){
-  let response = await fetch(`http://localhost:8080/reimb/${author}`, {
+  let response = await fetch(`http://localhost:8080/reimbs/${author}`, {
       method: 'GET',
       headers: {
           'Authorization': token
@@ -202,7 +202,7 @@ async function pendReqt(){
               noBtn = document.createElement('td');
               noBtn.innerHTML =
                 `<button type="button" id="noBtn" class="btn btn-secondary btn-sm" onclick="approveReimb(${i.id},3)">Deny</button>`;
-        
+                
               row.appendChild(typeTd);
               row.appendChild(amountTd);
               row.appendChild(descriptionTd);
@@ -269,6 +269,7 @@ async function resolvedReqt(){
 
 
 async function approveReimb(id, action) {
+  console.log(i.id);
   let response = await fetch(`http://localhost:8080/reimb/${id}`, {
     method: 'PUT',
     headers: {
