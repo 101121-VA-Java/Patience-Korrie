@@ -69,17 +69,32 @@ public class Driver {
 					post(ReimbController::makeReqt);
 				});
 				
-				path("getReimb", ()->{				
-					get(ReimbController:: getReimb);
+				path("getAllReimb", ()->{				
+					get(ReimbController:: getAllReimb);
+				});
+				
+				path("pending", () -> {
+					get(ReimbController:: getAllPendingReimb);
+				});
+				
+				path("resolved", () -> {
+					get(ReimbController:: getAllResolvedReimb);
+				});
+				
+				path("resolvedRqt", () -> {
+					get(ReimbController:: getAllResolvedReqt);
+				});
+				
+				path("{author}", () -> {
+					get(ReimbController:: getAllReimb);
 				});
 				
 				path("{id}", ()->{				
 					put(ReimbController::update);
 				});
 				
-				path("{author}", () -> {
-					get(ReimbController:: getReimb);
-				});
+				
+				
 				
 			});
 				

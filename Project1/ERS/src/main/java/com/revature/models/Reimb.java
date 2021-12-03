@@ -14,6 +14,7 @@ public class Reimb {
 	private int statusId;
 	private int typeId;
 	protected String typeName;
+	public String resolverName;
 	
 	
 	public Reimb() {
@@ -54,31 +55,7 @@ public class Reimb {
 	}
 
 
-	public Reimb(int id, int authorId, double amount, int typeId, String description, String submitted,
-			int statusId) {
-		super();
-		this.id = id;
-		this.amount = amount;
-		this.submitted = submitted;
-		this.description = description;
-		this.authorId = authorId;
-		this.statusId = statusId;
-		this.typeId = typeId;
-	}
-
-
-	public Reimb(int authorId, double amount, int typeId, String description, String submitted, String resolved,
-			int resolverId, int statusId) {
-		super();
-		this.amount = amount;
-		this.submitted = submitted;
-		this.description = description;
-		this.authorId = authorId;
-		this.statusId = statusId;
-		this.typeId = typeId;
-	}
-
-
+	
 	public Reimb(int id, int typeId, double amount, String description, String submitted, int statusId,
 			String resolved, int resolverId) {
 		this.id = id;
@@ -90,6 +67,18 @@ public class Reimb {
 		this.resolverId = resolverId;
 	}
 	
+	public Reimb(int id, int authorId, double amount, int typeId, String description, String submitted,
+			int statusId) {
+		this.id = id;
+		this.amount = amount;
+		this.submitted = submitted;
+		this.description = description;
+		this.statusId = statusId;
+		this.typeId = typeId;
+		this.statusId = statusId;
+		}
+
+
 	public void setTypeName(int i) {
 		switch(i)  {
 		case 1:

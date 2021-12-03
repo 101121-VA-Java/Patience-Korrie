@@ -29,13 +29,13 @@ public class ReimbController {
 	
 	
 	
-	public static void getReimb(Context ctx) {
+	public static void getAllReimb(Context ctx) {
 		String token = ctx.header("Authorization");
-		
 		if(token.split(":")[1].equals("2")) {
 			List <Reimb> rmbs = null;
-			
-			if(ctx.queryParam("author") == null) rmbs = rs.getAllReimb();
+			if(ctx.queryParam("author") == null) {
+				rmbs = rs.getAllReimb();
+			}
 			else {
 				int authorId =  Integer.parseInt(ctx.pathParam("author"));
 				rmbs = rs.getReimbsById(authorId);
@@ -43,21 +43,54 @@ public class ReimbController {
 			
 			if(rmbs == null)ctx.status(HttpCode.BAD_REQUEST);
 			else ctx.json(rmbs); ctx.status(HttpCode.CREATED);
-			
-			
-		}else if(token.split(":")[1].equals("1")) {
-			String[] info = token.split(":");
-			
-			int empId = Integer.parseInt(info[0]);
-			List <Reimb> rmbs = rs.getReimbsById(empId);
-			
-			if(rmbs == null) ctx.status(HttpCode.BAD_REQUEST);
-			else ctx.json(rmbs); ctx.status(HttpCode.CREATED);
-		} else {
+		}else {
 			ctx.status(HttpCode.UNAUTHORIZED);
-			return;
+			}
+	}
+	
+	public static void getAllResolvedReqt(Context ctx) {
+		String token = ctx.header("Authorization");
+		
+		if(token.split(":")[1].equals("2")) {
+			List <Reimb> rmbs = null;
+			rmbs = rs.getAllResolvedRequest();
+			
+			if(rmbs == null)ctx.status(HttpCode.BAD_REQUEST);
+			else ctx.json(rmbs); ctx.status(HttpCode.CREATED);
+			}else {
+				ctx.status(HttpCode.UNAUTHORIZED);
+				}
+	}
+	
+	
+	public static void getAllResolvedReimb(Context ctx) {
+		String token = ctx.header("Authorization");
+		List <Reimb> rmbs = null;
+		if(token.split(":")[1].equals("1")) {
+			int empId = Integer.parseInt(token.split(":")[0]);
+			 rmbs = rs.getAllResolved(empId);
+			 
+			 if(rmbs == null) ctx.status(HttpCode.BAD_REQUEST);
+				else ctx.json(rmbs); ctx.status(HttpCode.CREATED);
+			} else {
+			ctx.status(HttpCode.UNAUTHORIZED);
+			}
 		}
 		
+	public static void getAllPendingReimb(Context ctx) {
+		String token = ctx.header("Authorization");
+		List <Reimb> rmbs = null;
+		
+		if(token.split(":")[1].equals("1")) {
+		int empId = Integer.parseInt(token.split(":")[0]);
+		 rmbs = rs.getPendings(empId);
+		 
+		 if(rmbs == null) ctx.status(HttpCode.BAD_REQUEST);
+			else ctx.json(rmbs); ctx.status(HttpCode.CREATED);
+		} 
+		else {
+		ctx.status(HttpCode.UNAUTHORIZED);
+		}
 	}
 
 	public static void update(Context ctx) {

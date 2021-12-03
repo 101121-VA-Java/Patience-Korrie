@@ -45,7 +45,7 @@ public class UserPostgres implements UserDao{
 				String password = rs.getString("u_password");
 				String email = rs.getString("u_email");
 				int roleId = rs.getInt("u_roleId");
-				String role = rs.getString("r_role"); //might need to check that we are getting the role
+				String role = rs.getString("r_role"); 
 				
 				Roles role1 = new Roles(roleId,role);
 				
@@ -129,7 +129,6 @@ public class UserPostgres implements UserDao{
 			ps.setString(3, employee.getFirstName());
 			ps.setString(4, employee.getLastName());
 			ps.setString(5, employee.getEmail());
-//			ps.setInt(6, employee.getRole().getId());
 			ps.setInt(6, employee.getId());
 			
 			rowsChanged = ps.executeUpdate();

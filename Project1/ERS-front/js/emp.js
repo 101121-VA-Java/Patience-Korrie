@@ -97,7 +97,7 @@ let response = await fetch('http://localhost:8080/employee/update', {
 }
 
 async function pendinRqt(){
-  let response = await fetch('http://localhost:8080/reimb/getReimb', {
+  let response = await fetch('http://localhost:8080/reimb/pending', {
       method: 'GET',
       headers: {
           'Authorization': token
@@ -113,10 +113,11 @@ async function pendinRqt(){
   let reimb = await response.json();
 
   let tableBody = document.getElementById('pendingData');
+  tableBody.innerHTML = '';
 
-  console.log(reimb)
+  console.log(reimb);
   for(i of reimb){
-    if (i.statusId == 1){
+    if (i.statusId === 1){
       let row = document.createElement('tr');
 
       let typeTd = document.createElement('td');
@@ -141,7 +142,7 @@ async function pendinRqt(){
 }
 
 async function resolvedRqt(){
-  let response = await fetch('http://localhost:8080/reimb/getReimb', {
+  let response = await fetch('http://localhost:8080/reimb/resolved', {
     method: 'GET',
     headers: {
         'Authorization': token
@@ -159,6 +160,7 @@ if(response.status == 201){
   let tableBody = document.getElementById('resolvedData');
   tableBody.innerHTML = '';
 
+  console.log(reimb);
   for(i of reimb){
     if (i.statusId > 1){
       let row = document.createElement('tr');
@@ -175,8 +177,8 @@ if(response.status == 201){
       let submitedTd1 = document.createElement('td');
       submitedTd1.innerHTML = i.submitted;
 
-      let resolverTd1 = document.createElement('td');
-      resolverTd1.innerHTML = i.resolverId;
+      let resolver = document.createElement('td');
+      resolver.innerHTML = i.resolverName;
 
       let resolvedTd1 = document.createElement('td');
       resolvedTd1.innerHTML = i.resolved;
@@ -185,8 +187,8 @@ if(response.status == 201){
       row.appendChild(amountTd1);
       row.appendChild(descriptionTd1);
       row.appendChild(submitedTd1);
-      row.appendChild(resolverTd1);
       row.appendChild(resolvedTd1);
+      row.appendChild(resolver);
       tableBody.appendChild(row);
     }
   }

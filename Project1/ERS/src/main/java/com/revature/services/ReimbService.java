@@ -14,6 +14,11 @@ public class ReimbService {
 		return rd.getAllReimb();
 		
 	}
+	
+	public List<Reimb> getAllResolvedRequest(){
+		return rd.getAllResolvedRequest();
+	}
+	
 	public List<Reimb> getReimbsById(int id){
 		return rd.getReimbsById(id);
 		
@@ -28,9 +33,13 @@ public class ReimbService {
 	}
 	
 	
-//	public Reimb getPendings(int id) {
-//		return rd.getAllPendingReimb(id);
-//	}
+	public List<Reimb> getPendings(int id) {
+		return rd.getAllPendingReimb(id);
+	}
+	
+	public List<Reimb> getAllResolved(int id) {
+		return rd.getAllResolvedReimb(id);
+	}
 	
 	
 	public boolean update(Reimb r) {
